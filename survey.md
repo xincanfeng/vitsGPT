@@ -120,6 +120,10 @@ UTMOS: UTokyo-SaruLab System for VoiceMOS Challenge 2022 [[paper](https://arxiv.
 
 SpeechLMScore: Evaluating speech generation using speech language model [[paper](https://arxiv.org/abs/2212.04559)]
 
+CROWDMOS: An approach for crowdsourcing mean opinion score studies [[paper](https://ieeexplore.ieee.org/document/5946971)] 
+
+Significant test: mean-opinion-score 0.0.2 [[code](https://pypi.org/project/mean-opinion-score/)]
+
 ### Datasets
 
 LJ Speech [[download](https://keithito.com/LJ-Speech-Dataset/)] [[example code](https://github.com/keithito/tacotron)]
