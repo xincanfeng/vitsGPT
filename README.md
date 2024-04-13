@@ -1,26 +1,28 @@
 # **[Llama-VITS: Enhancing TTS Synthesis with Semantic Awareness](https://arxiv.org/abs/2404.06714)**
 
-This repository is the PyTorch implementation of Llama-VITS for enhanced TTS synthesis with semantic awareness. Implemented features:  
-- Model with Checkpoints: 
+This repository is the PyTorch implementation of Llama-VITS for enhanced TTS synthesis with semantic awareness. 
+
+## Implemented features:  
+Model with Checkpoints: 
 - [x] Llama-VITS 
 - [x] BERT-VITS
 - [x] ORI-VITS  
 
-- Evaluation Metrics:
+Evaluation Metrics:
 - [x] ESMOS  
 - [x] UTMOS  
 - [x] MCD  
 - [x] CER  
 - [x] WER  
 
-- Datasets:  
+Datasets:  
 - [x] full LJSpeech  
 - [x] 1-hour LJSpeech  
 - [x] EmoV_DB_bea_sem  
 
-- Audio Demos  
+Audio Demos  
 
-
+gi
 
 ## Citation
 
