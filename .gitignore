@@ -3,3 +3,5 @@ vits/*
 datasets/
 .venv_vitsGPT/
 venv_vitsGPT/
+trashbin.txt
+# .hypothesis

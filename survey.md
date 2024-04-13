@@ -120,7 +120,7 @@ UTMOS: UTokyo-SaruLab System for VoiceMOS Challenge 2022 [[paper](https://arxiv.
 
 SpeechLMScore: Evaluating speech generation using speech language model [[paper](https://arxiv.org/abs/2212.04559)]
 
-CROWDMOS: An approach for crowdsourcing mean opinion score studies [[paper](https://ieeexplore.ieee.org/document/5946971)] 
+CROWDMOS: An approach for crowdsourcing mean opinion score studies [[paper](https://ieeexplore.ieee.org/document/5946971)]
 
 Significant test: mean-opinion-score 0.0.2 [[code](https://pypi.org/project/mean-opinion-score/)]
 
@@ -171,3 +171,5 @@ JSUT [[example config](https://github.com/espnet/espnet/blob/master/egs2/jsut/tt
 - Expressive, Variable, and Controllable Duration Modelling in TTS [[paper](https://arxiv.org/pdf/2206.14165)]
 - EE-TTS: Emphatic Expressive TTS with Linguistic Information [[paper](https://arxiv.org/pdf/2305.12107)]
 - Mixed Orthographic/Phonemic Language Modeling: Beyond Orthographically Restricted Transformers (BORT) [[paper](https://aclanthology.org/2023.repl4nlp-1.18.pdf)]
+- Whispering LLaMA: A Cross-Modal Generative Error Correction Framework for Speech Recognition [[paper](https://arxiv.org/pdf/2310.06434.pdf)]
+- Vec-Tok Speech: speech vectorization and tokenization for neural speech generation [[paper](https://arxiv.org/abs/2310.07246)]
