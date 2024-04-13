@@ -4,7 +4,7 @@ This repository is the PyTorch implementation of Llama-VITS for enhanced TTS syn
 
 ## Implemented features:  
 **Model with Checkpoints:** 
-[x] Llama-VITS [x] BERT-VITS [x] ORI-VITS  
+- [x] Llama-VITS -[x] BERT-VITS -[x] ORI-VITS  
 
 **Evaluation Metrics:**
 - [x] ESMOS  
