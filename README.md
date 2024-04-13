@@ -1,5 +1,4 @@
-本代码库Llama-VITS的具体实现，如果对你有所帮助，请引用我们的论文"Llama-VITS: Enhancing TTS Synthesis with Semantic Awareness". [paper](https://arxiv.org/abs/2404.06714)
-
+This repository is the implementation for Llama-VITS, if it is useful to you, please cite our paper "Llama-VITS: Enhancing TTS Synthesis with Semantic Awareness". [paper](https://arxiv.org/abs/2404.06714)
 ```
 @misc{feng2024llamavits,
       title={Llama-VITS: Enhancing TTS Synthesis with Semantic Awareness}, 
@@ -9,4 +8,4 @@
       archivePrefix={arXiv},
       primaryClass={cs.CL}
 }
-```g
+```
