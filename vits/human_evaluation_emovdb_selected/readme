@@ -1,0 +1,16 @@
+Please help answer the following three questions by giving out a scaled-score or choose yes/no in the excel sheet. 
+Thank you so much for helping in your precious time!
+
+1. MOS: Each file should be given a score according to the following scale, known as the MOS (mean opinion score) scale for naturalness:				
+Excellent	5			
+Good	4			
+Fair	3			
+Poor	2			
+Bad     1					
+
+2. SMOS: Each file should be given a score according to the following scale, known as the SMOS (similarity mean opinion score) scale compared with ground truth:			
+Excellent Match	5		
+Good Match	4		
+Fair Match	3		
+Poor Match	2		
+Bad Match	1		
