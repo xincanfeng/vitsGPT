@@ -21,9 +21,7 @@ This repository is the PyTorch implementation of Llama-VITS. Please visit our [d
 - [x] 1-hour LJSpeech  
 - [x] EmoV_DB_bea_sem  
 
-## Quick Inference 
-We also provide the [pretrained models](a google drive page to appear). Follow the steps below to do quick inference using the pretrained models. 
-
+## Pre-requisites 
 0. Python >= 3.6
 0. Clone this repository
 0. Install python requirements. Please refer to [requirements.txt](requirements.txt)
@@ -50,6 +48,8 @@ Please refer to [preprocess_own_data.sh](vits/ori_vits/monotonic_align/preproces
 
 
 ## Extracting Semantic Embeddings
+Following the steps below, you can extract the semantic token embeddings.
+
 ### Extracting Semantic Embeddings From Llama
 
 1. Download Llama weights and tokenizer  
@@ -63,6 +63,8 @@ For Llama-related questions, please refer to [Llama](https://github.com/meta-lla
 
 
 ## Training
+You can train the VITS model w/ or w/o semantic tokens using the scripts below. We also provide the [pretrained models](a google drive page to appear).
+
 ### Training VITS with no semantic tokens  
 ```sh
 python vits/ori_vits/train.py -c vits/configs/ljs_base.json -m ljs_base
@@ -81,10 +83,12 @@ Please refer to [sem_train.sh](vits/sem_vits/sem_train.sh) for specific configur
 
 
 ## Inferencing
-See [inference.ipynb](vits/ori_vits/inference.ipynb) for an easy example.  
-See [infer_test.ipynb](vits/ori_vits/infer_test.ipynb) for inferencing using VITS with no semantic tokens on test data transcripts.  
-See [emo_infer_test.ipynb](vits/emo_vits/emo_infer_test.ipynb) for inferencing using VITS with global semantic tokens on test data transcripts.  
-See [sem_infer_test.ipynb](vits/sem_vits/sem_infer_test.ipynb) for inferencing using VITS with sequential semantic tokens on test data transcripts. 
+See [inference.ipynb](vits/ori_vits/inference.ipynb) as an easy example to understand how to inference on any text.  
+
+Configure the model weights w/ or w/o extracted semantic tokens in the files below, then you can inference on test data transcripts. 
+Use [infer_test.ipynb](vits/ori_vits/infer_test.ipynb) for inferencing with no semantic tokens on test data transcripts.  
+Use [emo_infer_test.ipynb](vits/emo_vits/emo_infer_test.ipynb) for inferencing with global semantic tokens on test data transcripts.  
+Use [sem_infer_test.ipynb](vits/sem_vits/sem_infer_test.ipynb) for inferencing with sequential semantic tokens on test data transcripts. 
 
 
 ## Evaluation
@@ -93,7 +97,6 @@ See [sem_infer_test.ipynb](vits/sem_vits/sem_infer_test.ipynb) for inferencing u
 
 
 ## **Citation**
-
 If our work is useful to you, please cite our paper: "**Llama-VITS: Enhancing TTS Synthesis with Semantic Awareness**". [paper](https://arxiv.org/abs/2404.06714)
 ```sh
 @misc{feng2024llamavits,
