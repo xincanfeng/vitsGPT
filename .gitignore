@@ -1,5 +1,8 @@
 llama/*
-vits/*
+vits/SURVEY
+**/logs/
+**/logs-batchsize16/
+
 
 datasets/EmoV_DB_bea_filtered
 datasets/jsut-1.1
@@ -13,3 +16,4 @@ datasets/VCTK-Corpus-0.92
 venv_vitsGPT/
 trashbin.txt
 .hypothesis
+g
