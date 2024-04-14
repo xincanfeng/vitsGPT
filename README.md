@@ -27,9 +27,9 @@ This repository is the PyTorch implementation of Llama-VITS. Please visit our [d
 0. Install python requirements. Please refer to [requirements.txt](requirements.txt)
     1. You may need to install espeak first: `apt-get install espeak`
 0. Download datasets
-    1. Download and extract the LJSpeech dataset, then rename or create a link to the dataset folder: `ln -s /path/to/LJSpeech-1.1/wavs DUMMY1`
-    1. Download and extract the 1-hour LJSpeech dataset, then rename or create a link to the dataset folder: `ln -s /path/to/LJSpeech-1.1/wavs DUMMY2`
-    1. Download and extract the EmoV_DB_bea_sem dataset, then rename or create a link to the dataset folder: `ln -s /path/to/LJSpeech-1.1/wavs DUMMY3`
+    1. Download and extract the LJSpeech dataset from [here](https://keithito.com/LJ-Speech-Dataset/), then rename or create a link to the dataset folder: `ln -s /path/to/LJSpeech-1.1/wavs vits/DUMMY1`
+    1. Download and extract the 1-hour LJSpeech dataset from [here](a google drive to appear), then rename or create a link to the dataset folder: `ln -s /path/to/LJSpeech-1.1/wavs vits/DUMMY2`
+    1. Download and extract the EmoV_DB_bea_sem dataset from [here](a google drive to appear), then rename or create a link to the dataset folder: `ln -s /path/to/LJSpeech-1.1/wavs vits/DUMMY3`
 0. Build Monotonic Alignment Search and run preprocessing if you use your own datasets.  
 ```sh
 # Cython-version Monotonoic Alignment Search
@@ -44,18 +44,22 @@ Please refer to [preprocess_own_data.sh](vits/ori_vits/monotonic_align/preproces
 
 
 
-
-
-
 ## Extracting Semantic Embeddings
-Following the steps below, you can extract the semantic token embeddings.
+We provide code to extract semantic embeddings from Llama or various BERT models. 
+
+Note that we also provide the [extracted semantic embeddings](a google drive page to apper). 
 
 ### Extracting Semantic Embeddings From Llama
+0. Download Llama weights and tokenizer  
+Use the Llama implementation in our repository which includes codes to extract the semantic embeddings in the final hidden layer. Then download the Llama weights and tokenizer from [Meta website](https://ai.meta.com/resources/models-and-libraries/llama-downloads/) and accept their License. 
 
-1. Download Llama weights and tokenizer  
-For Llama-related questions, please refer to [Llama](https://github.com/meta-llama/llama/tree/main) repository. Basicly, in order to download the Llama weights and tokenizer, one need to visit the [Meta website](https://ai.meta.com/resources/models-and-libraries/llama-downloads/) and accept their License. 
+Once your request is approved, you will receive a signed URL over email. Then run the [download.sh](llama/download.sh) script, passing the URL provided when prompted to start the download.
 
-2. 
+Pre-requisites: Make sure you have `wget` and `md5sum` installed. Then run the script: `./download.sh`.
+
+Keep in mind that the links expire after 24 hours and a certain amount of downloads. If you start seeing errors such as 403: Forbidden, you can always re-request a link.
+
+Please refer to [Llama](https://github.com/meta-llama/llama/tree/main) repository if there are further related questions. 
 
 ### Extracting Semantic Embeddings From various BERT models
 
@@ -63,7 +67,9 @@ For Llama-related questions, please refer to [Llama](https://github.com/meta-lla
 
 
 ## Training
-You can train the VITS model w/ or w/o semantic tokens using the scripts below. We also provide the [pretrained models](a google drive page to appear).
+You can train the VITS model w/ or w/o semantic tokens using the scripts below. 
+
+Note that we also provide the [pretrained models](a google drive page to appear).
 
 ### Training VITS with no semantic tokens  
 ```sh
