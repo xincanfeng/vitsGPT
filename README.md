@@ -115,7 +115,7 @@ Use [sem_infer_test.ipynb](vits/sem_vits/sem_infer_test.ipynb) for inferencing w
     pip install git+https://github.com/openai/whisper.git
     ```
 0. Use [run_eval_ljs.sh](vits/run_eval_ljs.sh) and [run_eval_emovdb.sh](vits/run_eval_emovdb.sh), respectively, for evaluation on LJSpeech and EmoV_DB and their subsets. 
-    - As you can learn from `run_eval_*.sh`, not only `eval.sh` are used, but also `eval_1_make_kaldi_style_files.py` and other process in [eval_datasets](vits/eval_datasets) are used to process and eval on inferenced audio, including downsampling. 
+    - As you can learn from `run_eval_*.sh`, not only [eval.sh](eval_espnet/eval.sh) are used, but also [eval_1_make_kaldi_style_files.py](vits/eval_datasets/eval_ljs/eval_1_make_kaldi_style_files.py) and other process in [eval_datasets](vits/eval_datasets) are used to process and eval on inferenced audio, including downsampling. 
 
 ### Eval ESMOS using Amazon Mechanical Turk (AMT) 
 We made paired random examples to receive ESMOS score using AMT. 
