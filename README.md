@@ -3,6 +3,7 @@
 In our recent [paper](https://arxiv.org/abs/2404.06714), we propose Llama-VITS for enhanced TTS synthesis with semantic awareness extracted from a large-scale language model.  
 This repository is the PyTorch implementation of Llama-VITS. Please visit our [demo](a github.io page to appear) for audio samples. 
 
+
 ## Implemented Features:  
 **Model with Weights:** 
 - [x] Llama-VITS  
@@ -13,13 +14,13 @@ This repository is the PyTorch implementation of Llama-VITS. Please visit our [d
 - [x] ESMOS  
 - [x] UTMOS  
 - [x] MCD  
-- [x] CER  
-- [x] WER  
+- [x] ASR (CER, WER)  
 
 **Datasets:**  
 - [x] full LJSpeech  
 - [x] 1-hour LJSpeech  
 - [x] EmoV_DB_bea_sem  
+
 
 ## Pre-requisites 
 0. Python >= 3.6
@@ -28,47 +29,55 @@ This repository is the PyTorch implementation of Llama-VITS. Please visit our [d
     1. You may need to install espeak first: `apt-get install espeak`
 0. Download datasets
     1. Download and extract the LJSpeech dataset from [here](https://keithito.com/LJ-Speech-Dataset/), then rename or create a link to the dataset folder: `ln -s /path/to/LJSpeech-1.1/wavs vits/DUMMY1`
-    1. Download and extract the 1-hour LJSpeech dataset from [here](a google drive to appear), then rename or create a link to the dataset folder: `ln -s /path/to/LJSpeech-1.1/wavs vits/DUMMY2`
-    1. Download and extract the EmoV_DB_bea_sem dataset from [here](a google drive to appear), then rename or create a link to the dataset folder: `ln -s /path/to/LJSpeech-1.1/wavs vits/DUMMY3`
+    1. Download and extract the EmoV_DB_bea_sem dataset from [here](a google drive to appear), then rename or create a link to the dataset folder: `ln -s /path/to/LJSpeech-1.1/wavs vits/DUMMY5`
+    1. You can also download EmoV_DB from [here](https://www.openslr.org/115/) and filter it using [preprocess_EmoV_DB_bea_filter.py](datasets/preprocess_EmoV_DB_bea_filter.py). 
+    1. We also provide 1-hour LJSpeech dataset [here](a google drive to appear), but you can easily filter it yourself from the full LJSpeech.  
+    1. We also provide other code for necessary data preprocessing, e.g., downsampling, in [datasets](datasets/).
 0. Build Monotonic Alignment Search and run preprocessing if you use your own datasets.  
-```sh
-# Cython-version Monotonoic Alignment Search
-cd monotonic_align
-python setup.py build_ext --inplace
+    ```sh
+    # Cython-version Monotonoic Alignment Search
+    cd monotonic_align
+    python setup.py build_ext --inplace
 
-# Preprocessing (g2p) for your own datasets. Preprocessed phonemes for LJSpeech and EmoV_DB_bea_sem have been already provided.
-# python preprocess.py --text_index 1 --filelists filelists/ljs_audio_text_train_filelist.txt filelists/ljs_audio_text_val_filelist.txt filelists/ljs_audio_text_test_filelist.txt 
-# python preprocess.py --text_index 2 --filelists filelists/vctk_audio_sid_text_train_filelist.txt filelists/vctk_audio_sid_text_val_filelist.txt filelists/vctk_audio_sid_text_test_filelist.txt
-```
-Please refer to [preprocess_own_data.sh](vits/ori_vits/monotonic_align/preprocess_own_data.sh) for more configurations. 
+    # Preprocessing (g2p) for your own datasets. 
+    # python preprocess.py --text_index 1 --filelists filelists/ljs_audio_text_train_filelist.txt filelists/ljs_audio_text_val_filelist.txt filelists/ljs_audio_text_test_filelist.txt 
+    ```
+    Please refer to [preprocess_own_data.sh](vits/ori_vits/monotonic_align/preprocess_own_data.sh) for configurations on different datasets.  
+    Note that we have provided preprocessed phonemes for LJSpeech, 1-hour LJSpeech, and EmoV_DB_bea_sem in [filelists](vits/filelists) named as `datasetname_audio_text_*_filelist.txt.cleaned`. 
 
-
-
-## Extracting Semantic Embeddings
-We provide code to extract semantic embeddings from Llama or various BERT models. 
-
-Note that we also provide the [extracted semantic embeddings](a google drive page to apper). 
+## Extracting Semantic Embeddings 
+Note that we have provided all extracted semantic embeddings from Llama or various BERT models in [filelists](vits/filelists) named as `datasetname_audio_tokenname_dimension.pt`. 
+We provide the code to extract semantic embeddings from Llama or various BERT models as below. 
 
 ### Extracting Semantic Embeddings From Llama
-0. Download Llama weights and tokenizer  
-Use the Llama implementation in our repository which includes codes to extract the semantic embeddings in the final hidden layer. Then download the Llama weights and tokenizer from [Meta website](https://ai.meta.com/resources/models-and-libraries/llama-downloads/) and accept their License. 
+0. Use the Llama implementation in our repository which includes codes to extract the semantic embeddings in the final hidden layer. But you can always refer to [Llama](https://github.com/meta-llama/llama/tree/main) repository if there are further related questions. 
+0. First, in the llama/ directory run: 
+    ```sh
+    pip install -e .
+    ```
+0. Then, download the Llama weights and tokenizer from [Meta website](https://ai.meta.com/resources/models-and-libraries/llama-downloads/) and accept their License.   
+0. Once your request is approved, you will receive a signed URL over email. Then run the [download.sh](llama/download.sh) script, passing the URL provided when prompted to start the download. (Pre-requisites: Make sure you have `wget` and `md5sum` installed. Then run the script: `./download.sh`.)  
+    - Make sure to grant execution permissions to the download.sh script
+    - During this process, you will be prompted to enter the URL from the email. 
+    - Do not use the “Copy Link” option but rather make sure to manually copy the link from the email.  
+    - Keep in mind that the links expire after 24 hours and a certain amount of downloads. If you start seeing errors such as `403: Forbidden`, you can always re-request a link.   
+0. Once the model/s you want have been downloaded, you can run the model locally using the command below:  
+    ```bash
+    torchrun --nproc_per_node 1 example_chat_completion.py \
+        --ckpt_dir llama-2-7b-chat/ \
+        --tokenizer_path tokenizer.model \
+        --max_seq_len 512 --max_batch_size 6
+    ```
+    You can refer to [inference.sh](llama/inference.sh) to know more examples about how to run Llama inference. You can use [inference_ave.sh](llama/inference_ave.sh), [inference_last.sh](llama/inference_last.sh), [inference_pca.sh](llama/inference_pca.sh), [inference_mat_phone.sh](llama/inference_mat_phone.sh), [inference_mat_text.sh](llama/inference_mat_text.sh), [inference_sentence.sh](llama/inference_sentence.sh), and [inference_word.sh](llama/inference_word.sh) for scripts to infer and extract specific semantic embeddings. 
 
-Once your request is approved, you will receive a signed URL over email. Then run the [download.sh](llama/download.sh) script, passing the URL provided when prompted to start the download.
-
-Pre-requisites: Make sure you have `wget` and `md5sum` installed. Then run the script: `./download.sh`.
-
-Keep in mind that the links expire after 24 hours and a certain amount of downloads. If you start seeing errors such as 403: Forbidden, you can always re-request a link.
-
-Please refer to [Llama](https://github.com/meta-llama/llama/tree/main) repository if there are further related questions. 
+    As you can read from the `inference*.sh` script, `example*.py` in the `llama/examples` folder is used to tell Llama how to extract different semantic embeddings, what input transcripts to follow, and where to output. So, remember to check the corresponding `example*.py` file for configurations of the variable `input_file`, `output_file`, and `audiopath` that you want to process. 
 
 ### Extracting Semantic Embeddings From various BERT models
-
-
+You can use [get_embedding.sh](berts/get_embedding.sh) to extract BERT embedding. 
 
 
 ## Training
-You can train the VITS model w/ or w/o semantic tokens using the scripts below. 
-
+You can train the VITS model w/ or w/o semantic tokens using the scripts below.  
 Note that we also provide the [pretrained models](a google drive page to appear).
 
 ### Training VITS with no semantic tokens  
@@ -98,12 +107,21 @@ Use [sem_infer_test.ipynb](vits/sem_vits/sem_infer_test.ipynb) for inferencing w
 
 
 ## Evaluation
-### Data Pre-processing
+### Eval MCD and ASR (CER, WER) using [ESPnet](https://github.com/espnet/espnet), eval UTMOS using [SpeechMOS](https://github.com/tarepan/SpeechMOS)
+0. Clone and install [ESPnet](https://github.com/espnet/espnet) according to its repository. 
+0. Copy and configure [eval.sh](eval_espnet/eval.sh) into `espnet/egs2/libritts/tts1/eval.sh`. 
+0. install whisper for calculating ASR (CER, WER)
+    ```sh
+    pip install git+https://github.com/openai/whisper.git
+    ```
+0. Use [run_eval_ljs.sh](vits/run_eval_ljs.sh) and [run_eval_emovdb.sh](vits/run_eval_emovdb.sh), respectively, for evaluation on LJSpeech and EmoV_DB and their subsets. 
+    - As you can learn from `run_eval_*.sh`, not only `eval.sh` are used, but also `eval_1_make_kaldi_style_files.py` and other process in [eval_datasets](vits/eval_datasets) are used to process and eval on inferenced audio, including downsampling. 
 
-
+### Eval ESMOS using Amazon Mechanical Turk (AMT) 
+We made paired random examples to receive ESMOS score using AMT. 
 
 ## **Citation**
-If our work is useful to you, please cite our paper: "**Llama-VITS: Enhancing TTS Synthesis with Semantic Awareness**". [paper](https://arxiv.org/abs/2404.06714)
+If our work is useful to you, please cite our paper: "**Llama-VITS: Enhancing TTS Synthesis with Semantic Awareness**". [paper](https://arxiv.org/abs/2404.06714)  
 ```sh
 @misc{feng2024llamavits,
       title={Llama-VITS: Enhancing TTS Synthesis with Semantic Awareness}, 

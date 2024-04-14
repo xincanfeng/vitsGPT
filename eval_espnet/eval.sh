@@ -58,19 +58,11 @@ exec &> "${model_step_dir}eval_${method}_${model}_${step}.txt"
 
 
 # Evaluate MCD
-# ./pyscripts/utils/evaluate_mcd.py \
-#     ${model_wavscp} \
-#     ${gt_wavscp}
-# # Evaluate log-F0 RMSE
-# ./pyscripts/utils/evaluate_f0.py \
-#     ${model_wavscp} \
-#     ${gt_wavscp}
-# If you want to calculate more precisely, limit the F0 range
-# ./pyscripts/utils/evaluate_f0.py \
-#     --f0min 80 \
-#     --f0max 7600 \
-#     ${model_wavscp} \
-#     ${gt_wavscp}
+./pyscripts/utils/evaluate_mcd.py \
+    ${model_wavscp} \
+    ${gt_wavscp}
+
+
 # You can also use openai whisper for evaluation
 ./scripts/utils/evaluate_asr.sh \
     --gpu_inference true \
@@ -82,12 +74,5 @@ exec &> "${model_step_dir}eval_${method}_${model}_${step}.txt"
     --gt_text ${gt_text} \
     ${model_wavscp} \
     ${model_step_dir}asr_results
-# # Evaluate CFSD
-# ./pyscripts/utils/evaluate_cfsd.py \
-#     ${model_wavscp} \
-#     ${gt_wavscp}
-# Evaluate SECS
-# ./pyscripts/utils/evaluate_secs.py \
-#     ${model_wavscp} \
-#     ${gt_wavscp}
+
 

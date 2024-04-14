@@ -1,6 +1,14 @@
 llama/*
 vits/*
-datasets/
+
+datasets/EmoV_DB_bea_filtered
+datasets/jsut-1.1
+datasets/LibriTTS
+datasets/LibriTTS_filtered
+datasets/LJSpeech-1.1
+datasets/THCHS30
+datasets/VCTK-Corpus-0.92
+
 .venv_vitsGPT/
 venv_vitsGPT/
 trashbin.txt

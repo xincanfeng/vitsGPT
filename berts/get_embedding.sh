@@ -2,8 +2,8 @@
 
 
 # dataset="ljs"
-dataset="librif"
-# dataset="emovdb"
+# dataset="librif"
+dataset="emovdb"
 
 # Execute the first Python script
 python3 /data/vitsGPT/berts/get_embedding_cls.py ${dataset}
