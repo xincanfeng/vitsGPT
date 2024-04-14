@@ -1,4 +1,9 @@
-llama/*
+llama/llama-2-7b
+llama/llama-2-7b-chat
+llama/llama-2-13b
+llama/llama-2-13b-chat
+llama/llama-2-70b
+llama/llama-2-70b-chat
 vits/SURVEY
 **/logs/
 **/logs-batchsize16/
