@@ -42,7 +42,7 @@ python setup.py build_ext --inplace
 # python preprocess.py --text_index 1 --filelists filelists/ljs_audio_text_train_filelist.txt filelists/ljs_audio_text_val_filelist.txt filelists/ljs_audio_text_test_filelist.txt 
 # python preprocess.py --text_index 2 --filelists filelists/vctk_audio_sid_text_train_filelist.txt filelists/vctk_audio_sid_text_val_filelist.txt filelists/vctk_audio_sid_text_test_filelist.txt
 ```
-Please refer to [preprocess_own_data.sh](preprocess_own_data.sh) for more configurations. 
+Please refer to [preprocess_own_data.sh](vits/ori_vits/monotonic_align/preprocess_own_data.sh) for more configurations. 
 
 
 
@@ -75,10 +75,10 @@ python vitsGPT/vits/ori_vits/train.py -c /vitsGPT/vits/configs/ljs_base.json -m 
 
 
 ## Inferencing
-See [inference.ipynb](inference.ipynb) for an easy example.  
-See [infer_test.ipynb](infer_test.ipynb) for inferencing using VITS with no semantic tokens on test data transcripts.  
-See [emo_infer_test.ipynb](emo_infer_test.ipynb) for inferencing using VITS with global semantic tokens on test data transcripts.  
-See [sem_infer_test.ipynb](sem_infer_test.ipynb) for inferencing using VITS with sequential semantic tokens on test data transcripts. 
+See [inference.ipynb](vits/ori_vits/inference.ipynb) for an easy example.  
+See [infer_test.ipynb](vits/ori_vits/infer_test.ipynb) for inferencing using VITS with no semantic tokens on test data transcripts.  
+See [emo_infer_test.ipynb](vits/emo_vits/emo_infer_test.ipynb) for inferencing using VITS with global semantic tokens on test data transcripts.  
+See [sem_infer_test.ipynb](vits/sem_vits/sem_infer_test.ipynb) for inferencing using VITS with sequential semantic tokens on test data transcripts. 
 
 
 ## Evaluation
