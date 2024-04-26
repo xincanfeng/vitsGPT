@@ -116,18 +116,18 @@ Note that, in the `source_model_test_wav` file, the saved audio samples are name
     pip install git+https://github.com/openai/whisper.git
     ```
 0. Use [run_eval_ljs.sh](vits/run_eval_ljs.sh) and [run_eval_emovdb.sh](vits/run_eval_emovdb.sh), respectively, for evaluation on LJSpeech or EmoV_DB or their subsets. 
-    - For example, as you can learn from `run_eval_*.sh`, not only [eval.sh](eval_espnet/eval.sh) are used, but also [eval_1_make_kaldi_style_files.py](vits/eval_datasets/eval_ljs/eval_1_make_kaldi_style_files.py) and other process in [eval_datasets](vits/eval_datasets) are used to process and eval on inferenced audio. Specifically,  
-    1. 1. Run `eval_1_make_kaldi_style_files.py` to rename the generated audio samples in the `source_model_test_wav` file corresponding to its transcript key. And generate related scp files. 
+    For example, as you can learn from `run_eval_*.sh`, not only [eval.sh](eval_espnet/eval.sh) are used, but also [eval_1_make_kaldi_style_files.py](vits/eval_datasets/eval_ljs/eval_1_make_kaldi_style_files.py) and other process in [eval_datasets](vits/eval_datasets) are used to process and eval on inferenced audio. Specifically,  
+    1. Run `eval_1_make_kaldi_style_files.py` to rename the generated audio samples in the `source_model_test_wav` file corresponding to its transcript key. And generate related scp files. 
     ```sh
     python3 /data/vitsGPT/vits/eval_datasets/eval_ljs/eval_1_make_kaldi_style_files.py ${method} ${model} ${step}
     ```
 
-    1. 2. Run `eval_2_unify_and_eval.sh` to downsample both model generated audios and ground truth audios to ensure they have the the same sampling rate. 
+    2. Run `eval_2_unify_and_eval.sh` to downsample both model generated audios and ground truth audios to ensure they have the the same sampling rate. 
     ```sh
     . /data/vitsGPT/vits/eval_datasets/eval_ljs/eval_2_unify_and_eval.sh ${method} ${model} ${step}
     ```
 
-    1. 3. Run `eval.sh` to evaluate MCD，ASR，F0 using the ESPnet framework. (You can also run this step after the step 4.)
+    3. Run `eval.sh` to evaluate MCD，ASR，F0 using the ESPnet framework. (You can also run this step after the step 4.)
     ```sh
     CUDA_VISIBLE_DEVICES=0 . /data/espnet/egs2/libritts/tts1/eval.sh ${method} ${model} ${step} 
     ```
@@ -136,7 +136,7 @@ Note that, in the `source_model_test_wav` file, the saved audio samples are name
     CUDA_VISIBLE_DEVICES=0 nohup /data/espnet/egs2/libritts/tts1/eval.sh ${method} ${model} ${step} > eval.log 2>&1 & 
     ```
 
-    1. 4. Run `eval_3_mos.py` to evaluate UTMOS using the SpeechMOS framework. 
+    4. Run `eval_3_mos.py` to evaluate UTMOS using the SpeechMOS framework. 
     ```sh
     CUDA_VISIBLE_DEVICES=0 python3 /data/vitsGPT/vits/eval_datasets/eval_ljs/eval_3_mos.py ${method} ${model} ${step}
     ```
