@@ -530,7 +530,7 @@ class SynthesizerTrn(nn.Module):
     if self.n_speakers > 0 and emb_sem is None:
       g = self.emb_g(sid).unsqueeze(-1)
     elif self.n_speakers > 0 and emb_sem is not None:
-      g = self.emb_g(sid).unsqueeze(-1) + emb_sem.unsqueeze(-1) # [b, h, 1] b是批量大小，h是嵌入向量的大小
+      g = self.emb_g(sid).unsqueeze(-1) + emb_sem.unsqueeze(-1) # [b, h, 1] b is batchsize，h is embedding dimension
     else:
       g = None
 
