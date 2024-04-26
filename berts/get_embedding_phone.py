@@ -3,7 +3,7 @@ from text2phonemesequence import Text2PhonemeSequence
 import torch
 import sys
 
-# 使用 sys.argv 来获取命令行参数
+# use sys.argv to get command parameters
 dataset = sys.argv[1]
 
 # Ensure that GPU is available and set the device

@@ -4,7 +4,7 @@ import csv
 embedding_file_name = '/data/vitsGPT/vits/filelists/emovdb_audio_bert_cls_768'
 
 # load embedding file
-gt_embeddings_dict = torch.load(f"{embedding_file_name}.pt") # 加载文本嵌入的字典
+gt_embeddings_dict = torch.load(f"{embedding_file_name}.pt") # load embedding dictionary
 # print(gt_embeddings_dict)
 print(len(gt_embeddings_dict))
 
@@ -18,13 +18,12 @@ print(len(gt_embeddings_dict))
 # print(f"The CSV file has {number_of_rows} rows.")
 
 
-# 准备写入 CSV 文件
+# prepare writing into CSV 
 with open(f'{embedding_file_name}_check.csv', 'w', newline='') as csvfile:
     writer = csv.writer(csvfile)
-    # 对于字典中的每个项
     for key, tensor in gt_embeddings_dict.items():
-        # 获取 tensor 的头尾各 5 个值
+        # get the first 5 valused in the head and tail of the tensor, respectively
         values = list(tensor[:5].numpy()) + list(tensor[-5:].numpy())
-        # 写入 CSV 文件
+        # write into CSV
         writer.writerow([key] + values)
         

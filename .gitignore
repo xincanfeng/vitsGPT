@@ -9,13 +9,10 @@ vits/SURVEY
 **/logs-batchsize16/
 
 
-datasets/EmoV_DB_bea_filtered
-datasets/jsut-1.1
-datasets/LibriTTS
-datasets/LibriTTS_filtered
+datasets/EmoV_DB_bea_sem
 datasets/LJSpeech-1.1
-datasets/THCHS30
-datasets/VCTK-Corpus-0.92
+dataset/
+
 
 .venv_vitsGPT/
 venv_vitsGPT/

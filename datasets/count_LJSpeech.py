@@ -3,7 +3,7 @@ import librosa
 import os
 
 
-# 主要处理的文件对象
+# configure your file path
 text_file = "/data/vitsGPT/vits/filelists/ljs_audio_text_all_filelist.txt"
 all_filelist = "/data/vitsGPT/vits/filelists/ljs_audio_text_all_filelist.txt"
 train24_filelist = "/data/vitsGPT/vits/filelists/ljs_audio_text_train_filelist.txt"
@@ -13,17 +13,17 @@ test_filelist = "/data/vitsGPT/vits/filelists/ljs_audio_text_test_filelist.txt"
 wav_directory = "/data/vitsGPT/vits/"
 
 
-# # 2. 计算wav文件的总时长
+# # 2. calculate the total duration of wav
 def compute_total_duration(text_file, directory):
-    # 从 filtered_text 文件中获取所有的wav文件名
+    # get all wav name from filtered_text file
     with open(text_file, 'r') as f:
         lines = f.readlines()
         wav_files = [line.strip().split('|')[0] for line in lines]
-    total_duration = 0.0  # 时长总和，单位为秒
-    # 对于每一个wav文件，计算它的时长并累加
+    total_duration = 0.0  # total duration (second)
+    # sum all wav duration
     for wav_file in wav_files:
-        y, sr = librosa.load(os.path.join(directory, wav_file), sr=None)  # 加载wav文件
-        duration = librosa.get_duration(y=y, sr=sr)  # 获取wav文件的时长
+        y, sr = librosa.load(os.path.join(directory, wav_file), sr=None)  # load wav file
+        duration = librosa.get_duration(y=y, sr=sr)  # get wav duration
         total_duration += duration
     return total_duration
 # total_duration = compute_total_duration(text_file, wav_directory)

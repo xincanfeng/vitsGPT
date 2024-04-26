@@ -1,7 +1,6 @@
 # **[Llama-VITS](https://arxiv.org/abs/2404.06714)**
 
-In our recent [paper](https://arxiv.org/abs/2404.06714), we propose Llama-VITS for enhanced TTS synthesis with semantic awareness extracted from a large-scale language model.  
-This repository is the PyTorch implementation of Llama-VITS. Please visit our [demo](https://xincanfeng.github.io/Llama-VITS_demo/) for audio samples. 
+In our recent [paper](https://arxiv.org/abs/2404.06714), we propose Llama-VITS for enhanced TTS synthesis with semantic awareness extracted from a large-scale language model. This repository is the PyTorch implementation of Llama-VITS. Please visit our [demo](https://xincanfeng.github.io/Llama-VITS_demo/) for audio samples. 
 
 
 ## Implemented Features:  
@@ -30,9 +29,9 @@ This repository is the PyTorch implementation of Llama-VITS. Please visit our [d
 0. Download datasets
     1. Download and extract the LJSpeech dataset from [here](https://keithito.com/LJ-Speech-Dataset/), then rename or create a link to the dataset folder: `ln -s /path/to/LJSpeech-1.1/wavs vits/DUMMY1`
     1. Download and extract the EmoV_DB_bea_sem dataset from [here](a google drive to appear), then rename or create a link to the dataset folder: `ln -s /path/to/LJSpeech-1.1/wavs vits/DUMMY5`
-    1. You can also download EmoV_DB from [here](https://www.openslr.org/115/) and filter it using [preprocess_EmoV_DB_bea_filter.py](datasets/preprocess_EmoV_DB_bea_filter.py). 
-    1. We also provide 1-hour LJSpeech dataset [here](a google drive to appear), but you can easily filter it yourself from the full LJSpeech.  
-    1. We also provide other code for necessary data preprocessing, e.g., downsampling, in [datasets](datasets/).
+    1. You can also download EmoV_DB from [here](https://www.openslr.org/115/) and filter it yourself by refering to our  [preprocess_EmoV_DB_bea_filter.py](datasets/preprocess_EmoV_DB_bea_filter.py). We also provide other code for necessary data preprocessing, e.g., downsampling, in this folder. 
+    1. We do not provide 1-hour LJSpeech dataset, but you can easily filter it yourself from the full LJSpeech. 
+    1. You can check our [filelists](vits/filelists) for exact information about every dataset and semantic token in our experiments.   
 0. Build Monotonic Alignment Search and run preprocessing if you use your own datasets.  
     ```sh
     # Cython-version Monotonoic Alignment Search
@@ -73,8 +72,7 @@ We provide the code to extract semantic embeddings from Llama or various BERT mo
     As you can read from the `inference*.sh` script, `example*.py` in the `llama/examples` folder is used to tell Llama how to extract different semantic embeddings, what input transcripts to follow, and where to output. So, remember to check the corresponding `example*.py` file for configurations of the variable `input_file`, `output_file`, and `audiopath` that you want to process. 
 
 ### Extracting Semantic Embeddings From various BERT models
-You can use [get_embedding.sh](berts/get_embedding.sh) to extract BERT embedding. 
-
+You can configure in [get_embedding.sh](berts/get_embedding.sh) to extract BERT embedding. When configuring, don't forget to set correct `filelist_dir` in corresponding `get_embedding_*.py` files. 
 
 ## Training
 You can train the VITS model w/ or w/o semantic tokens using the scripts below.  
