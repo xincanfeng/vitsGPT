@@ -116,7 +116,7 @@ Note that, in the `source_model_test_wav` file, the saved audio samples are name
     pip install git+https://github.com/openai/whisper.git
     ```
 0. Use [run_eval_ljs.sh](vits/run_eval_ljs.sh) and [run_eval_emovdb.sh](vits/run_eval_emovdb.sh), respectively, for evaluation on LJSpeech or EmoV_DB or their subsets. 
-    For example, as you can learn from `run_eval_*.sh`, not only [eval.sh](eval_espnet/eval.sh) are used, but also [eval_1_make_kaldi_style_files.py](vits/eval_datasets/eval_ljs/eval_1_make_kaldi_style_files.py) and other process in [eval_datasets](vits/eval_datasets) are used to process and eval on inferenced audio. Specifically,  
+    As you can learn from `run_eval_*.sh`, for example, not only [eval.sh](eval_espnet/eval.sh) are used, but also [eval_1_make_kaldi_style_files.py](vits/eval_datasets/eval_ljs/eval_1_make_kaldi_style_files.py) and other process in [eval_datasets](vits/eval_datasets) are used to process and eval on inferenced audio. Specifically,  
     1. Run `eval_1_make_kaldi_style_files.py` to rename the generated audio samples in the `source_model_test_wav` file corresponding to its transcript key. And generate related scp files. 
     ```sh
     python3 /data/vitsGPT/vits/eval_datasets/eval_ljs/eval_1_make_kaldi_style_files.py ${method} ${model} ${step}
@@ -142,7 +142,7 @@ Note that, in the `source_model_test_wav` file, the saved audio samples are name
     ```
 
 ### Eval ESMOS using Amazon Mechanical Turk (AMT) 
-0. We made paired random examples to receive ESMOS score using AMT. 
+We made paired random examples to receive ESMOS score using AMT. 
 
 ## **Citation**
 If our work is useful to you, please cite our paper: "**Llama-VITS: Enhancing TTS Synthesis with Semantic Awareness**". [paper](https://arxiv.org/abs/2404.06714)  
