@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # 选择模型
-# method='ori' 
+method='ori' 
 # model='ljs_base'
-# model='onehour_ljs_base'
+model='onehour_ljs_base'
 
-method='emo'
-model='ljs_emo_add_ave'
+# method='emo'
+# model='ljs_emo_add_ave'
 # model='ljs_emo_add_last'
 # model='ljs_emo_add_pca'
 # model='ljs_emo_add_eis_word'
@@ -29,12 +29,12 @@ model='ljs_emo_add_ave'
 # model='onehour_ljs_sem_mat_bert_phone'
 # model='onehour_ljs_sem_mat_bert_text'
 
-step='G_50000'
+# step='G_50000'
 # step='G_100000'
 # step='G_150000'
 # step='G_200000'
 # step='G_250000'
-# step='G_300000'
+step='G_300000'
 
 
 # 1. 执行 Python 脚本，给model_wav重命名，并创建相关scp文件

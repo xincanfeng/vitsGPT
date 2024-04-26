@@ -1,7 +1,7 @@
 # **[Llama-VITS](https://arxiv.org/abs/2404.06714)**
 
 In our recent [paper](https://arxiv.org/abs/2404.06714), we propose Llama-VITS for enhanced TTS synthesis with semantic awareness extracted from a large-scale language model.  
-This repository is the PyTorch implementation of Llama-VITS. Please visit our [demo](a github.io page to appear) for audio samples. 
+This repository is the PyTorch implementation of Llama-VITS. Please visit our [demo](https://xincanfeng.github.io/Llama-VITS_demo/) for audio samples. 
 
 
 ## Implemented Features:  
@@ -100,11 +100,12 @@ Please refer to [sem_train.sh](vits/sem_vits/sem_train.sh) for specific configur
 ## Inferencing
 See [inference.ipynb](vits/ori_vits/inference.ipynb) as an easy example to understand how to inference on any text.  
 
-Configure the model weights w/ or w/o extracted semantic tokens in the files below, then you can inference on test data transcripts. 
+Configure the model weights w/ or w/o extracted semantic tokens in the files below for inference according to specific model. Then you can inference on test data transcripts and generate a folder named after the checkpoint, e.g., `G_100000`, including a folder named `source_model_test_wav` which saves all the generated audios in the correspoding checkpoint directory. Specifically,   
 Use [infer_test.ipynb](vits/ori_vits/infer_test.ipynb) for inferencing with no semantic tokens on test data transcripts.  
 Use [emo_infer_test.ipynb](vits/emo_vits/emo_infer_test.ipynb) for inferencing with global semantic tokens on test data transcripts.  
 Use [sem_infer_test.ipynb](vits/sem_vits/sem_infer_test.ipynb) for inferencing with sequential semantic tokens on test data transcripts. 
 
+Note that, in the `source_model_test_wav` file, the saved audio samples are named in the generation order instead of the corresponding transcript key for convenience. 
 
 ## Evaluation
 ### Eval MCD and ASR (CER, WER) using [ESPnet](https://github.com/espnet/espnet), eval UTMOS using [SpeechMOS](https://github.com/tarepan/SpeechMOS)
@@ -114,11 +115,34 @@ Use [sem_infer_test.ipynb](vits/sem_vits/sem_infer_test.ipynb) for inferencing w
     ```sh
     pip install git+https://github.com/openai/whisper.git
     ```
-0. Use [run_eval_ljs.sh](vits/run_eval_ljs.sh) and [run_eval_emovdb.sh](vits/run_eval_emovdb.sh), respectively, for evaluation on LJSpeech and EmoV_DB and their subsets. 
-    - As you can learn from `run_eval_*.sh`, not only [eval.sh](eval_espnet/eval.sh) are used, but also [eval_1_make_kaldi_style_files.py](vits/eval_datasets/eval_ljs/eval_1_make_kaldi_style_files.py) and other process in [eval_datasets](vits/eval_datasets) are used to process and eval on inferenced audio, including downsampling. 
+0. Use [run_eval_ljs.sh](vits/run_eval_ljs.sh) and [run_eval_emovdb.sh](vits/run_eval_emovdb.sh), respectively, for evaluation on LJSpeech or EmoV_DB or their subsets. 
+    - For example, as you can learn from `run_eval_*.sh`, not only [eval.sh](eval_espnet/eval.sh) are used, but also [eval_1_make_kaldi_style_files.py](vits/eval_datasets/eval_ljs/eval_1_make_kaldi_style_files.py) and other process in [eval_datasets](vits/eval_datasets) are used to process and eval on inferenced audio. Specifically,  
+    1. 1. Run `eval_1_make_kaldi_style_files.py` to rename the generated audio samples in the `source_model_test_wav` file corresponding to its transcript key. And generate related scp files. 
+    ```sh
+    python3 /data/vitsGPT/vits/eval_datasets/eval_ljs/eval_1_make_kaldi_style_files.py ${method} ${model} ${step}
+    ```
+
+    1. 2. Run `eval_2_unify_and_eval.sh` to downsample both model generated audios and ground truth audios to ensure they have the the same sampling rate. 
+    ```sh
+    . /data/vitsGPT/vits/eval_datasets/eval_ljs/eval_2_unify_and_eval.sh ${method} ${model} ${step}
+    ```
+
+    1. 3. Run `eval.sh` to evaluate MCD，ASR，F0 using the ESPnet framework. (You can also run this step after the step 4.)
+    ```sh
+    CUDA_VISIBLE_DEVICES=0 . /data/espnet/egs2/libritts/tts1/eval.sh ${method} ${model} ${step} 
+    ```
+    Because this step may take some time, it is recommended to run this process in the background using:
+    ```sh
+    CUDA_VISIBLE_DEVICES=0 nohup /data/espnet/egs2/libritts/tts1/eval.sh ${method} ${model} ${step} > eval.log 2>&1 & 
+    ```
+
+    1. 4. Run `eval_3_mos.py` to evaluate UTMOS using the SpeechMOS framework. 
+    ```sh
+    CUDA_VISIBLE_DEVICES=0 python3 /data/vitsGPT/vits/eval_datasets/eval_ljs/eval_3_mos.py ${method} ${model} ${step}
+    ```
 
 ### Eval ESMOS using Amazon Mechanical Turk (AMT) 
-We made paired random examples to receive ESMOS score using AMT. 
+0. We made paired random examples to receive ESMOS score using AMT. 
 
 ## **Citation**
 If our work is useful to you, please cite our paper: "**Llama-VITS: Enhancing TTS Synthesis with Semantic Awareness**". [paper](https://arxiv.org/abs/2404.06714)  
