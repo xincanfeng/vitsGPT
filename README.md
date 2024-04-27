@@ -106,8 +106,8 @@ We provide the code to extract semantic embeddings from Llama or various BERT mo
         --tokenizer_path tokenizer.model \
         --max_seq_len 512 --max_batch_size 6
     ```
-    You can refer to [inference.sh](llama/inference.sh) to know more examples about how to run Llama inference. You can use [inference_ave.sh](llama/inference_ave.sh), [inference_last.sh](llama/inference_last.sh), [inference_pca.sh](llama/inference_pca.sh), [inference_mat_phone.sh](llama/inference_mat_phone.sh), [inference_mat_text.sh](llama/inference_mat_text.sh), [inference_sentence.sh](llama/inference_sentence.sh), and [inference_word.sh](llama/inference_word.sh) for scripts to infer and extract specific semantic embeddings. 
-
+0. You can refer to [inference.sh](llama/inference.sh) to know more examples about how to run Llama inference. You can use [inference_ave.sh](llama/inference_ave.sh), [inference_last.sh](llama/inference_last.sh), [inference_pca.sh](llama/inference_pca.sh), [inference_mat_phone.sh](llama/inference_mat_phone.sh), [inference_mat_text.sh](llama/inference_mat_text.sh), [inference_sentence.sh](llama/inference_sentence.sh), and [inference_word.sh](llama/inference_word.sh) for scripts to infer and extract specific semantic embeddings. 
+g
     As you can read from the `inference*.sh` script, `example*.py` in the `llama/examples` folder is used to tell Llama how to extract different semantic embeddings, what input transcripts to follow, and where to output. So, remember to check the corresponding `example*.py` file for configurations of the variable `input_file`, `output_file`, and `audiopath` that you want to process. 
 
 ### Extracting Semantic Embeddings From various BERT models
