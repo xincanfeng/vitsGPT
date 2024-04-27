@@ -117,17 +117,20 @@ Note that we also provide part of our [pretrained models](https://drive.google.c
 
 ### Training VITS with no semantic tokens  
 ```sh
-python vits/ori_vits/train.py -c vits/configs/ljs_base.json -m ljs_base
+cd ori_vits/
+python train.py -c configs/ljs_base.json -m ljs_base
 ```
 Please refer to [train.sh](vits/ori_vits/train.sh) for specific configurations of different datasets.
 ### Training VITS with global semantic tokens   
 ```sh
-python vits/emo_vits/emo_train.py -c vits/configs/ljs_sem_ave.json -m ljs_emo_add_ave
+cd emo_vits/
+python emo_train.py -c configs/ljs_sem_ave.json -m ljs_emo_add_ave
 ```
 Please refer to [emo_train.sh](vits/emo_vits/emo_train.sh) for specific configurations of different datasets and global tokens.
 ### Training VITS with sequential semantic tokens  
 ```sh
-python vits/sem_vits/sem_train.py -c vits/configs/ljs_sem_mat_text.json -m ljs_sem_mat_text
+cd sem_vits/
+python sem_train.py -c configs/ljs_sem_mat_text.json -m ljs_sem_mat_text
 ```
 Please refer to [sem_train.sh](vits/sem_vits/sem_train.sh) for specific configurations of different datasets and sequential tokens. ("mat" in the sequential tokens' file name means "matrix", because compared to global token which is mathematically represented by a single vector, sequential token is represented by a matrix for each sentence transcript.)
 
