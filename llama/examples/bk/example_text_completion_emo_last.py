@@ -26,8 +26,8 @@ def load_sentences_from_file(input_file: str):
 def main(
     ckpt_dir: str,
     tokenizer_path: str,
-    input_file: str = '/data/vitsGPT/datasets/LJSpeech-1.1/metadata_copy10.csv',
-    output_file: str = f"/data/vitsGPT/vits/filelists/{output_file_name}_5120.pt",
+    input_file: str = 'datasets/LJSpeech-1.1/metadata_copy10.csv',
+    output_file: str = f"vits/filelists/{output_file_name}_5120.pt",
     temperature: float = 0.6,
     top_p: float = 0.9,
     max_seq_len: int = 256,

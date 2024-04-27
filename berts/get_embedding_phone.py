@@ -32,7 +32,7 @@ def get_embedding(sentence):
 # dataset = "ljs"
 # dataset = "librif"
 # dataset = "emovdb"
-filelist_dir = "/data/vitsGPT/vits/filelists/"
+filelist_dir = "vits/filelists/"
 file_path = f"{filelist_dir}{dataset}_audio_text_all_filelist.txt"  
 
 embeddings_dict = {}

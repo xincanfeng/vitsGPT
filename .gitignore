@@ -7,6 +7,7 @@ llama/llama-2-70b-chat
 vits/SURVEY
 **/logs/
 **/logs-batchsize16/
+filelists
 
 
 datasets/EmoV_DB_bea_sem

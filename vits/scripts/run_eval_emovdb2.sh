@@ -27,16 +27,16 @@ step='G_150000'
 
 
 # 1. 执行 Python 脚本，给model_wav重命名，并创建相关scp文件
-# python3 /data/vitsGPT/vits/eval_datasets/eval_emovdb/eval_1_make_kaldi_style_files.py ${method} ${model} ${step}
+# python3 vits/eval_datasets/eval_emovdb/eval_1_make_kaldi_style_files.py ${method} ${model} ${step}
 
 # 2. 执行 Bash 脚本，对model_wav（和gt_wav）降采样
-# . /data/vitsGPT/vits/eval_datasets/eval_emovdb/eval_2_unify_and_eval_init.sh ${method} ${model} ${step} # 第一次的话执行这个，后面就执行下面的了
-# . /data/vitsGPT/vits/eval_datasets/eval_emovdb/eval_2_unify_and_eval.sh ${method} ${model} ${step}
+# . vits/eval_datasets/eval_emovdb/eval_2_unify_and_eval_init.sh ${method} ${model} ${step} # 第一次的话执行这个，后面就执行下面的了
+# . vits/eval_datasets/eval_emovdb/eval_2_unify_and_eval.sh ${method} ${model} ${step}
 
 # 3. 用SpeechMOS评估UTMOS
-# CUDA_VISIBLE_DEVICES=0 python3 /data/vitsGPT/vits/eval_datasets/eval_emovdb/eval_3_mos.py ${method} ${model} ${step}
+# CUDA_VISIBLE_DEVICES=0 python3 vits/eval_datasets/eval_emovdb/eval_3_mos.py ${method} ${model} ${step}
 
 # 4. 在espnet中随便找一个英语recipe，利用它的代码对模型生成的wav进行客观指标MCD，ASR，F0等的评估
-CUDA_VISIBLE_DEVICES=0 . /data/espnet/egs2/libritts/tts1/eval.sh ${method} ${model} ${step} 
+CUDA_VISIBLE_DEVICES=0 . espnet/egs2/libritts/tts1/eval.sh ${method} ${model} ${step} 
 # 可选：在后台运行
-# CUDA_VISIBLE_DEVICES=0 nohup /data/espnet/egs2/libritts/tts1/eval.sh ${method} ${model} ${step} > eval.log 2>&1 & 
+# CUDA_VISIBLE_DEVICES=0 nohup espnet/egs2/libritts/tts1/eval.sh ${method} ${model} ${step} > eval.log 2>&1 & 

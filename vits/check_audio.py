@@ -16,8 +16,8 @@ def find_zero_length_audio(folder_path):
 
 # Assuming the folder name is 'audio_files'
 model="ori_vits"
-# folder_path = f'/data/vitsGPT/vits/{model}/output_test_wav/'
-folder_path = "/data/vitsGPT/vits/DUMMY1/"
+# folder_path = f'vits/{model}/output_test_wav/'
+folder_path = "vits/DUMMY1/"
 zero_length_audio_files = find_zero_length_audio(folder_path)
 
 if zero_length_audio_files:

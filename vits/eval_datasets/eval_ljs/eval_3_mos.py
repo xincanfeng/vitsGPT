@@ -10,7 +10,7 @@ method = sys.argv[1]
 model = sys.argv[2]
 step = sys.argv[3]
 
-model_step_dir = f"/data/vitsGPT/vits/{method}_vits/logs/{model}/{step}/"
+model_step_dir = f"vits/{method}_vits/logs/{model}/{step}/"
 model_audio_folder_dir = f"{model_step_dir}model_test_wav/" 
 model_mos_results_path = f"{model_step_dir}mos_results.txt"
 

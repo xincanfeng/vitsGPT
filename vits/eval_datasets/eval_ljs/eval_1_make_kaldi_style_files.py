@@ -42,13 +42,13 @@ step = sys.argv[3]
 # step = 'G_250000'
 # step = 'G_300000'
 
-model_step_dir = f"/data/vitsGPT/vits/{method}_vits/logs/{model}/{step}/"
+model_step_dir = f"vits/{method}_vits/logs/{model}/{step}/"
 kaldi_style_files_dir = f"{model_step_dir}kaldi_style_files/"
-source_text_path = "/data/vitsGPT/vits/filelists/ljs_audio_text_test_filelist.txt"
+source_text_path = "vits/filelists/ljs_audio_text_test_filelist.txt"
 
-gt_audio_folder_dir = '/data/vitsGPT/vits/DUMMY1/gt_test_wav/'
+gt_audio_folder_dir = 'vits/DUMMY1/gt_test_wav/'
 model_audio_folder_dir = f"{model_step_dir}model_test_wav/"  # 包含要重命名的文件的文件夹的路径
-source_gt_audio_folder_dir = '/data/vitsGPT/vits/DUMMY1/'
+source_gt_audio_folder_dir = 'vits/DUMMY1/'
 source_model_audio_folder_dir = f'{model_step_dir}source_model_test_wav/'
 
 text_file_path = f"{kaldi_style_files_dir}text"

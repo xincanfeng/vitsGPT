@@ -44,7 +44,7 @@ step=$3
 # step='G_250000'
 # step='G_300000'
 
-model_step_dir="/data/vitsGPT/vits/${method}_vits/logs/${model}/${step}/"
+model_step_dir="vits/${method}_vits/logs/${model}/${step}/"
 kaldi_style_files_dir="${model_step_dir}kaldi_style_files/"
 
 gt_wav_scp_path="${kaldi_style_files_dir}gt_wav.scp"
@@ -52,9 +52,9 @@ model_wav_scp_path="${kaldi_style_files_dir}model_wav.scp"
 source_gt_wav_scp_path="${kaldi_style_files_dir}source_gt_wav.scp"
 source_model_wav_scp_path="${kaldi_style_files_dir}source_model_wav.scp"
 
-gt_audio_folder_dir='/data/vitsGPT/vits/DUMMY1/gt_test_wav/'
+gt_audio_folder_dir='vits/DUMMY1/gt_test_wav/'
 model_audio_folder_dir="${model_step_dir}model_test_wav/"
-source_gt_audio_folder_dir='/data/vitsGPT/vits/DUMMY1/'
+source_gt_audio_folder_dir='vits/DUMMY1/'
 source_model_audio_folder_dir="${model_step_dir}source_model_test_wav/"
 
 
@@ -96,10 +96,10 @@ done
 
 
 # stage 2. 重新检查文件是否存在
-# python3 /data/vitsGPT/vits/eval_1_make_kaldi_style_files.py check_files_existence_in_scp ${gt_wav_scp_path} ;
-# python3 /data/vitsGPT/vits/eval_1_make_kaldi_style_files.py check_files_existence_in_scp ${model_wav_scp_path} ;
-# python3 /data/vitsGPT/vits/eval_1_make_kaldi_style_files.py check_files_existence_in_scp ${source_gt_wav_scp_path} ;
-# python3 /data/vitsGPT/vits/eval_1_make_kaldi_style_files.py check_files_existence_in_scp ${source_model_wav_scp_path} ;
+# python3 vits/eval_1_make_kaldi_style_files.py check_files_existence_in_scp ${gt_wav_scp_path} ;
+# python3 vits/eval_1_make_kaldi_style_files.py check_files_existence_in_scp ${model_wav_scp_path} ;
+# python3 vits/eval_1_make_kaldi_style_files.py check_files_existence_in_scp ${source_gt_wav_scp_path} ;
+# python3 vits/eval_1_make_kaldi_style_files.py check_files_existence_in_scp ${source_model_wav_scp_path} ;
 
 
 # stage 3. 在espnet中随便找一个英语recipe，利用它的代码对模型生成的wav进行评估

@@ -34,8 +34,8 @@ def load_sentences_from_file(input_file: str, batch_size: int):
 def main(
     ckpt_dir: str,
     tokenizer_path: str,
-    input_file: str = '/data/vitsGPT/datasets/EmoV_DB_bea_filtered/audio_llama-emo_wav_filtered.txt',
-    output_file: str = '/data/vitsGPT/vits/filelists/emovdb_audio_sem_eis_sentence_4096.pt',
+    input_file: str = 'datasets/EmoV_DB_bea_filtered/audio_llama-emo_wav_filtered.txt',
+    output_file: str = 'vits/filelists/emovdb_audio_sem_eis_sentence_4096.pt',
     temperature: float = 0.6,
     top_p: float = 0.9,
     max_seq_len: int = 512,

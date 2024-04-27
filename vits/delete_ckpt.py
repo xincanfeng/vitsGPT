@@ -12,7 +12,7 @@ def is_not_divisible_by_10000(filename):
 
 
 # 定义目标文件夹路径
-directory_path = '/data/vitsGPT/vits/sem_vits/logs/ljs_sem_mat_text'
+directory_path = 'vits/sem_vits/logs/ljs_sem_mat_text'
 
 
 # 遍历目标文件夹中的所有文件
