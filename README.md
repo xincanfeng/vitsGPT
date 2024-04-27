@@ -94,7 +94,7 @@ You can configure in [get_embedding.sh](berts/get_embedding.sh) to extract BERT 
 
 ## Training
 You can train the VITS model w/ or w/o semantic tokens using the scripts below.  
-Note that we also provide part of our [pretrained models](a google drive page to appear).
+Note that we also provide part of our [pretrained models](https://drive.google.com/file/d/1IWLzFv9PpFUjeUQWJ4fnnmpROLtfvx9L/view?usp=sharing).
 
 ### Training VITS with no semantic tokens  
 ```sh
