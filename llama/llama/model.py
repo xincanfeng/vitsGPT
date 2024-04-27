@@ -267,11 +267,13 @@ class Transformer(nn.Module):
             self.params.dim // self.params.n_heads, self.params.max_seq_len * 2
         )
 
-        self._h = None # 把输出前最后一层的文本嵌入初始化为None
+        self._h = None # Initialize the text embeddings of the final layer before output to None.
         self._h_list = []
-        self._h_last_real_token_bl = None # b表示是用一个batch中最短的tokens数来简化计算的
+        self._h_last_real_token_bl = None # The letter 'b' represents the simplification of computations by using the shortest number of tokens in a batch.
         self._h_ave_real_token_bl = None
-        self.is_prompt_short = True # 默认第一个输出的文本嵌入是promt位置，但实际上在batch处理中，会统一按照最短文本来做第一步计算，因此长文本的正确位置需要之后计算
+        # The default configuration places the first output of the text embedding at the prompt position. However, in batch processing, the computation initially aligns with the shortest text. Consequently, the correct positioning of longer texts requires subsequent calculation.
+        # 默认第一个输出的文本嵌入是promt位置，但实际上在batch处理中，会统一按照最短文本来做第一步计算，因此长文本的正确位置需要之后计算
+        self.is_prompt_short = True 
         # self.call_count = 0
 
     @torch.inference_mode()
@@ -284,30 +286,35 @@ class Transformer(nn.Module):
         mask = None
         if seqlen > 1:
             mask = torch.full(
-                (1, 1, seqlen, seqlen), float("-inf"), device=tokens.device # float("-inf")在mask矩阵中表示被mask掉的位置，而0表示没有被mask掉的位置
+                (1, 1, seqlen, seqlen), float("-inf"), device=tokens.device # In the mask matrix, the value `float("-inf")` indicates positions that are masked, whereas a value of `0` denotes positions that are not masked.
             )
             mask = torch.triu(mask, diagonal=start_pos + 1).type_as(self._h)
         
-        # 计算每一层的文本嵌入
+        # Calculate the text embeddings for each layer.
         for layer in self.layers:
             self._h = layer(self._h, start_pos, freqs_cis, mask)
+        # Calculate the norm of the text embedding in the final layer, where the first tensor represents the text embedding of the prompt, followed by tensors representing the text embeddings of the generated results.
         # 计算最后一层的文本嵌入的norm，其中第一个tensor表示prompt的文本嵌入，其后跟着的tensor是生成结果的文本嵌入
         self._h = self.norm(self._h) # [batch_size=num_of_sentences, sequence_length=num_of_tokens, hidden_size=size_of_each_token] 
         output = self.output(self._h).float() # [batch_size, sequence_length, vocab_size]
         
+        # The following code is designed to extract the embedding from the last hidden layer, which represents the text embedding of the prompt.
         # 以下代码用于抽出最后一个隐藏层的embedding、用以表示prompt的文本嵌入
+        # Note: Hidden layers do not automatically save; to use them in another file, you must manually save them as a list.
         # 注意：隐藏层不会自动保存结果，为了在另一个文件中使用，必须自己保存成列表
         # print("text embedding in the last layer of inference_mode")
         # print(self._h)
         # print(self._h.shape)
         self._h_list.append(self._h)
 
+        # The `forward` function should operate independently each time it is invoked, without any awareness of previous calls; therefore, `call_count` is utilized.
         # forward 函数每次调用时都应该是独立的，它不知道之前的调用次数，所以使用call_count
-        # self.call_count += 1 # 每次调用，都增加计数
+        # self.call_count += 1 # Increment the count with each call
+        # In a simplified version, the selection is based on the real tokens of the shortest text within the batch (effectiveness is unknown).
         # 简化版：按照batch内最短的文本的real tokens来取（效果未知）
         if self.is_prompt_short:
-            self._h_last_real_token_bl = self._h[:, -1, :] # [batch_size, last_real_token_embedding] 只取每个文本的最后一个real token 
-            self._h_ave_real_token_bl = torch.mean(self._h, dim=1) # [batch_size, ave_real_token_embedding] 沿着第二个维度(同一个文本的所有tokens)求平均
+            self._h_last_real_token_bl = self._h[:, -1, :] # [batch_size, last_real_token_embedding] Select only the final real token from each text.
+            self._h_ave_real_token_bl = torch.mean(self._h, dim=1) # [batch_size, ave_real_token_embedding] Calculate the average along the second dimension (all tokens of the same text).
             self.is_prompt_short = False
         
         return output, self._h_last_real_token_bl, self._h_ave_real_token_bl, self._h_list

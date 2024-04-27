@@ -15,6 +15,7 @@ dataset/
 
 
 checkpoints/
+checkpoints.tar.gz
 
 
 .venv_vitsGPT/
