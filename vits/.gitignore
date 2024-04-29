@@ -1,4 +1,6 @@
 filelists
+filelists_Llama2-7b-token
+hf_data/
 */model_test_wav/*
 */source_model_test_wav/*
 */kaldi_style_files/*
