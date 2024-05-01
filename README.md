@@ -111,7 +111,7 @@ We provide the code to extract semantic embeddings from Llama or various BERT mo
     As you can read from the `inference_{token}.sh` script, `example_{llama-model}_{token-method}_{token}.py` in the `llama/examples/{dataset}_examples` folder is used to tell Llama how to extract different semantic embeddings, what input transcripts to follow, and where to output. So, remember to check the corresponding `example_{llama-model}_{token-method}_{token}.py` file for configurations of the variable `input_file`, `output_file`, and `audiopath` that you want to process. 
 
 ### Extracting Semantic Embeddings From various BERT models
-You can configure in [get_embedding.sh](berts/get_embedding.sh) to extract BERT embedding. When configuring, don't forget to set correct `filelist_dir` in corresponding `get_embedding_*.py` files. 
+You can configure in [get_embedding.sh](berts/get_embedding.sh) to extract BERT embedding. When configuring, don't forget to set correct `filelist_dir` in corresponding `get_embedding_{token}.py` files. 
 
 ## Training
 You can train the VITS model w/ or w/o semantic tokens using the scripts below.  
@@ -156,7 +156,7 @@ Note that, in the `source_model_test_wav` file, the saved audio samples are name
     pip install git+https://github.com/openai/whisper.git
     ```
 0. Use [run_eval_ljs.sh](vits/run_eval_ljs.sh) and [run_eval_emovdb.sh](vits/run_eval_emovdb.sh), respectively, for evaluation on LJSpeech or EmoV_DB or their subsets. 
-    As you can learn from `run_eval_*.sh`, for example, not only [eval.sh](eval_espnet/eval.sh) are used, but also [eval_1_make_kaldi_style_files.py](vits/eval_datasets/eval_ljs/eval_1_make_kaldi_style_files.py) and other process in [eval_datasets](vits/eval_datasets) are used to process and eval on inferenced audio. Specifically,  
+    As you can learn from `run_eval_{dataset}.sh`, for example, not only [eval.sh](eval_espnet/eval.sh) are used, but also [eval_1_make_kaldi_style_files.py](vits/eval_datasets/eval_ljs/eval_1_make_kaldi_style_files.py) and other process in [eval_datasets](vits/eval_datasets) are used to process and eval on inferenced audio. Specifically,  
     1. Run `eval_1_make_kaldi_style_files.py` to rename the generated audio samples in the `source_model_test_wav` file corresponding to its transcript key. And generate related scp files. 
         ```sh
         python3 vits/eval_datasets/eval_ljs/eval_1_make_kaldi_style_files.py ${method} ${model} ${step}
