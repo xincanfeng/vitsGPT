@@ -15,6 +15,7 @@ datasets/LJSpeech-1.1
 dataset/
 
 
+hf_data/
 checkpoints/
 checkpoints.tar.gz
 
