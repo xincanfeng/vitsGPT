@@ -27,9 +27,9 @@ CUDA_VISIBLE_DEVICES=0 python emo_train.py -c configs/onehour_ljs_bert_cls.json 
 # CUDA_VISIBLE_DEVICES=0 python emo_train.py -c configs/emovdb_bert_cls.json -m emovdb_emo_add_bert_cls 
 
 # batchsize 16
-# CUDA_VISIBLE_DEVICES=0 python emo_train.py -c configs/emovdb_sem_ave16.json -m emovdb_emo_add_ave_pretrained16 
-# CUDA_VISIBLE_DEVICES=0 python emo_train.py -c configs/emovdb_sem_last16.json -m emovdb_emo_add_last_pretrained16 
-# CUDA_VISIBLE_DEVICES=0 python emo_train.py -c configs/emovdb_sem_pca16.json -m emovdb_emo_add_pca_pretrained16 
-# CUDA_VISIBLE_DEVICES=0 python emo_train.py -c configs/emovdb_sem_eis_word16.json -m emovdb_emo_add_eis_word_pretrained16 
-# CUDA_VISIBLE_DEVICES=0 python emo_train.py -c configs/emovdb_sem_eis_sentence16.json -m emovdb_emo_add_eis_sentence_pretrained16 
-# CUDA_VISIBLE_DEVICES=0 python emo_train.py -c configs/emovdb_bert_cls16.json -m emovdb_emo_add_bert_cls_pretrained16 
+CUDA_VISIBLE_DEVICES=1 python emo_train.py -c configs/emovdb_sem_ave16.json -m emovdb_emo_add_ave_pretrained16 
+CUDA_VISIBLE_DEVICES=1 python emo_train.py -c configs/emovdb_sem_last16.json -m emovdb_emo_add_last_pretrained16 
+CUDA_VISIBLE_DEVICES=0 python emo_train.py -c configs/emovdb_sem_pca16.json -m emovdb_emo_add_pca_pretrained16 
+CUDA_VISIBLE_DEVICES=0 python emo_train.py -c configs/emovdb_sem_eis_word16.json -m emovdb_emo_add_eis_word_pretrained16 
+CUDA_VISIBLE_DEVICES=1 python emo_train.py -c configs/emovdb_sem_eis_sentence16.json -m emovdb_emo_add_eis_sentence_pretrained16 
+CUDA_VISIBLE_DEVICES=0 python emo_train.py -c configs/emovdb_bert_cls16.json -m emovdb_emo_add_bert_cls_pretrained16 

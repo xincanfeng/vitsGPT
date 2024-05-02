@@ -8,4 +8,4 @@ CUDA_VISIBLE_DEVICES=1 python train.py -c configs/onehour_ljs_sem_mat_text.json 
 # batchsize 64
 # CUDA_VISIBLE_DEVICES=0 python train.py -c configs/emovdb_base.json -m emovdb_base
 # batchsize 16
-# CUDA_VISIBLE_DEVICES=0 python train.py -c configs/emovdb_base16.json -m emovdb_base_pretrained16
+CUDA_VISIBLE_DEVICES=0 python train.py -c configs/emovdb_base16.json -m emovdb_base_pretrained16
