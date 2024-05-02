@@ -4,13 +4,13 @@ import os
 
 
 # 主要处理的文件对象
-text_file = "/data/vitsGPT/vits/filelists/ljs_audio_text_all_filelist.txt"
-all_filelist = "/data/vitsGPT/vits/filelists/ljs_audio_text_all_filelist.txt"
-train24_filelist = "/data/vitsGPT/vits/filelists/ljs_audio_text_train_filelist.txt"
-train1_filelist = "/data/vitsGPT/vits/filelists/onehour_ljs_audio_text_train_filelist.txt"
-dev_filelist = "/data/vitsGPT/vits/filelists/ljs_audio_text_val_filelist.txt"
-test_filelist = "/data/vitsGPT/vits/filelists/ljs_audio_text_test_filelist.txt"
-wav_directory = "/data/vitsGPT/vits/"
+text_file = "vitsGPT/vits/filelists/ljs_audio_text_all_filelist.txt"
+all_filelist = "vitsGPT/vits/filelists/ljs_audio_text_all_filelist.txt"
+train24_filelist = "vitsGPT/vits/filelists/ljs_audio_text_train_filelist.txt"
+train1_filelist = "vitsGPT/vits/filelists/onehour_ljs_audio_text_train_filelist.txt"
+dev_filelist = "vitsGPT/vits/filelists/ljs_audio_text_val_filelist.txt"
+test_filelist = "vitsGPT/vits/filelists/ljs_audio_text_test_filelist.txt"
+wav_directory = "vitsGPT/vits/"
 
 
 # # 2. 计算wav文件的总时长

@@ -4,40 +4,40 @@ import os
 
 
 # 主要处理的文件对象
-text_file = "/data/vitsGPT/datasets/LibriTTS_filtered/text_2204_131732.txt"
-all_filelist = "/data/vitsGPT/vits/filelists/librif_audio_text_all_filelist.txt"
-dev_filelist = "/data/vitsGPT/vits/filelists/librif_audio_text_dev_filelist.txt"
-test_filelist = "/data/vitsGPT/vits/filelists/librif_audio_text_test_filelist.txt"
-train_filelist = "/data/vitsGPT/vits/filelists/librif_audio_text_train_filelist.txt"
-wav_directory = "/data/vitsGPT/vits/"
+text_file = "vitsGPT/datasets/LibriTTS_filtered/text_2204_131732.txt"
+all_filelist = "vitsGPT/vits/filelists/librif_audio_text_all_filelist.txt"
+dev_filelist = "vitsGPT/vits/filelists/librif_audio_text_dev_filelist.txt"
+test_filelist = "vitsGPT/vits/filelists/librif_audio_text_test_filelist.txt"
+train_filelist = "vitsGPT/vits/filelists/librif_audio_text_train_filelist.txt"
+wav_directory = "vitsGPT/vits/"
 
 
 # 1. 划分数据集
-# def split_dataset(text_file):
-#     with open(text_file, 'r') as f:
-#         lines = f.readlines()
-#     # 打乱行的顺序
-#     random.shuffle(lines)
-#     # 格式转换函数
-#     def convert_format(line):
-#         key, value = line.strip().split(" ", 1)
-#         return f"DUMMY6/{key}.wav|{value}\n"
-#     # 提取dev, test和train的数据，并进行格式转换
-#     all_lines = [convert_format(line) for line in lines[:]]
-#     dev_lines = [convert_format(line) for line in lines[:30]]
-#     test_lines = [convert_format(line) for line in lines[30:60]]
-#     train_lines = [convert_format(line) for line in lines[60:]]
-#     # 保存到新的文件
-#     with open(all_filelist, "w") as f:
-#         f.writelines(all_lines)
-#     with open(dev_filelist, "w") as f:
-#         f.writelines(dev_lines)
-#     with open(test_filelist, "w") as f:
-#         f.writelines(test_lines)
-#     with open(train_filelist, "w") as f:
-#         f.writelines(train_lines)
-# # 使用方法
-# split_dataset(text_file)
+def split_dataset(text_file):
+    with open(text_file, 'r') as f:
+        lines = f.readlines()
+    # 打乱行的顺序
+    random.shuffle(lines)
+    # 格式转换函数
+    def convert_format(line):
+        key, value = line.strip().split(" ", 1)
+        return f"DUMMY6/{key}.wav|{value}\n"
+    # 提取dev, test和train的数据，并进行格式转换
+    all_lines = [convert_format(line) for line in lines[:]]
+    dev_lines = [convert_format(line) for line in lines[:30]]
+    test_lines = [convert_format(line) for line in lines[30:60]]
+    train_lines = [convert_format(line) for line in lines[60:]]
+    # 保存到新的文件
+    with open(all_filelist, "w") as f:
+        f.writelines(all_lines)
+    with open(dev_filelist, "w") as f:
+        f.writelines(dev_lines)
+    with open(test_filelist, "w") as f:
+        f.writelines(test_lines)
+    with open(train_filelist, "w") as f:
+        f.writelines(train_lines)
+# 使用方法
+split_dataset(text_file)
 
 
 # # 2. 计算wav文件的总时长

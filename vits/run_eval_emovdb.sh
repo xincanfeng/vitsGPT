@@ -30,8 +30,8 @@ step='G_150000'
 # 1. Run `eval_1_make_kaldi_style_files.py` to rename the generated audio samples in the `source_model_test_wav` file corresponding to its transcript key. And generate related scp files. 
 python3 vits/eval_datasets/eval_emovdb/eval_1_make_kaldi_style_files.py ${method} ${model} ${step}
 
-# 2. Run `eval_2_unify_and_eval.sh` to downsample both model_wav and gt_wav to ensure they have the the same sampling rate.
-# . vits/eval_datasets/eval_emovdb/eval_2_unify_and_eval_init.sh ${method} ${model} ${step} # You only need to run this once. But you can run below scripts many times. 
+# 2. Run `eval_2_unify_and_eval.sh` to downsample both model_wav and gt_wav to ensure they have the the same sampling rate, then eval.
+. vits/eval_datasets/eval_emovdb/eval_2_unify_and_eval_init.sh ${method} ${model} ${step} # You only need to run this once. But you can run below scripts many times. 
 . vits/eval_datasets/eval_emovdb/eval_2_unify_and_eval.sh ${method} ${model} ${step}
 
 # 3. Run `eval_3_mos.py` to evaluate UTMOS using the SpeechMOS framework. 

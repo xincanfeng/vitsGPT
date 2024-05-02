@@ -1,7 +1,7 @@
 #!/bin/bash
 
-input_directory="/data/vitsGPT/datasets/EmoV_DB_bea"
-output_directory="/data/vitsGPT/datasets/EmoV_DB_bea_downsampled"
+input_directory="vitsGPT/datasets/EmoV_DB_bea"
+output_directory="vitsGPT/datasets/EmoV_DB_bea_downsampled"
 
 # 确保输出目录存在
 mkdir -p "$output_directory"

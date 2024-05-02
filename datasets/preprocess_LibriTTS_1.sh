@@ -1,7 +1,7 @@
 #!/bin/bash
 
-input_directory="/data/vitsGPT/datasets/LibriTTS_filtered/wav_2204_131732/"
-output_directory="/data/vitsGPT/datasets/LibriTTS_filtered/wav_2204_131732_downsampled/"
+input_directory="vitsGPT/datasets/LibriTTS_filtered/wav_2204_131732/"
+output_directory="vitsGPT/datasets/LibriTTS_filtered/wav_2204_131732_downsampled/"
 
 # 确保输出目录存在
 mkdir -p "${output_directory}"

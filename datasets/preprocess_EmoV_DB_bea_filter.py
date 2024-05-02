@@ -16,12 +16,12 @@ def extract_emotion(line):
             return emotion
     return ''
 # 读取 meta.csv 文件并创建一个句子到编号的映射
-with open('/data/vitsGPT/datasets/EmoV_DB_bea_filtered/metadata.csv', 'r') as meta_file:
+with open('vitsGPT/datasets/EmoV_DB_bea_filtered/metadata.csv', 'r') as meta_file:
     meta_dict = {line.split('|')[1].strip(): line.split('|')[0] for line in meta_file.readlines()}
 # 处理 text 文件
-with open(f'/data/vitsGPT/datasets/EmoV_DB_bea_filtered/emovdb-bea_audio_emo_{i}.txt', 'r') as text_file:
+with open(f'vitsGPT/datasets/EmoV_DB_bea_filtered/emovdb-bea_audio_emo_{i}.txt', 'r') as text_file:
     lines = text_file.readlines()
-with open(f'/data/vitsGPT/datasets/EmoV_DB_bea_filtered/audio_llama-emo_text_{i}.txt', 'w') as output_file:
+with open(f'vitsGPT/datasets/EmoV_DB_bea_filtered/audio_llama-emo_text_{i}.txt', 'w') as output_file:
     for line in lines:
         pre, post = line.split('|')
         emotion = extract_emotion(pre)
@@ -34,7 +34,7 @@ with open(f'/data/vitsGPT/datasets/EmoV_DB_bea_filtered/audio_llama-emo_text_{i}
 
 # 2. 核对每个生成audio|emotion|text文件的感情标签是否一致，并输出不一致的audio
 # 所有audio|emotion|text文件所在目录
-directory_path = "/data/vitsGPT/datasets/EmoV_DB_bea_filtered/audio_llama-emo_text/"
+directory_path = "vitsGPT/datasets/EmoV_DB_bea_filtered/audio_llama-emo_text/"
 # 从文件中读取内容
 def read_file_content(filepath):
     with open(filepath, 'r') as file:
@@ -101,10 +101,10 @@ def filter_and_copy_wavs(text_file, filtered_text_file, source_directory, destin
     if unmatched_ids:
         print(f"Unmatched or multiple matches found for IDs: {', '.join(unmatched_ids)}")
 # 使用方法
-text_file = "/data/vitsGPT/datasets/EmoV_DB_bea_filtered/audio_llama-emo_text.txt"
-filtered_text_file = "/data/vitsGPT/datasets/EmoV_DB_bea_filtered/audio_llama-emo_wav_filtered.txt"
-source_directory = "/data/vitsGPT/datasets/EmoV_DB_bea_filtered/wavs_bk"
-destination_directory = "/data/vitsGPT/datasets/EmoV_DB_bea_filtered/wavs_filtered"
+text_file = "vitsGPT/datasets/EmoV_DB_bea_filtered/audio_llama-emo_text.txt"
+filtered_text_file = "vitsGPT/datasets/EmoV_DB_bea_filtered/audio_llama-emo_wav_filtered.txt"
+source_directory = "vitsGPT/datasets/EmoV_DB_bea_filtered/wavs_bk"
+destination_directory = "vitsGPT/datasets/EmoV_DB_bea_filtered/wavs_filtered"
 filter_and_copy_wavs(text_file, filtered_text_file, source_directory, destination_directory)
 
 
@@ -121,11 +121,11 @@ def compute_total_duration(filtered_text_file, directory):
         duration = librosa.get_duration(y=y, sr=sr)  # 获取wav文件的时长
         total_duration += duration
     return total_duration
-filtered_text_file = "/data/vitsGPT/datasets/EmoV_DB_bea_filtered/audio_llama-emo_wav_filtered.txt"
-train_file = "/data/vitsGPT/datasets/EmoV_DB_bea_filtered/train.txt"
-dev_file = "/data/vitsGPT/datasets/EmoV_DB_bea_filtered/dev.txt"
-test_file = "/data/vitsGPT/datasets/EmoV_DB_bea_filtered/test.txt"
-directory = "/data/vitsGPT/datasets/EmoV_DB_bea_filtered/wavs_filtered"
+filtered_text_file = "vitsGPT/datasets/EmoV_DB_bea_filtered/audio_llama-emo_wav_filtered.txt"
+train_file = "vitsGPT/datasets/EmoV_DB_bea_filtered/train.txt"
+dev_file = "vitsGPT/datasets/EmoV_DB_bea_filtered/dev.txt"
+test_file = "vitsGPT/datasets/EmoV_DB_bea_filtered/test.txt"
+directory = "vitsGPT/datasets/EmoV_DB_bea_filtered/wavs_filtered"
 total_duration = compute_total_duration(filtered_text_file, directory)
 train_duration = compute_total_duration(train_file, directory)
 dev_duration = compute_total_duration(dev_file, directory)
@@ -167,10 +167,10 @@ def split_dataset_maintain_ratio(filtered_text_file, train_file, dev_file, test_
         f.writelines(dev_set)
     with open(test_file, 'w') as f:
         f.writelines(test_set)
-filtered_text_file = "/data/vitsGPT/datasets/EmoV_DB_bea_filtered/audio_llama-emo_wav_filtered.txt"
-train_file = "/data/vitsGPT/datasets/EmoV_DB_bea_filtered/train.txt"
-dev_file = "/data/vitsGPT/datasets/EmoV_DB_bea_filtered/dev.txt"
-test_file = "/data/vitsGPT/datasets/EmoV_DB_bea_filtered/test.txt"
+filtered_text_file = "vitsGPT/datasets/EmoV_DB_bea_filtered/audio_llama-emo_wav_filtered.txt"
+train_file = "vitsGPT/datasets/EmoV_DB_bea_filtered/train.txt"
+dev_file = "vitsGPT/datasets/EmoV_DB_bea_filtered/dev.txt"
+test_file = "vitsGPT/datasets/EmoV_DB_bea_filtered/test.txt"
 split_dataset_maintain_ratio(filtered_text_file, train_file, dev_file, test_file)
 
 
@@ -203,10 +203,10 @@ def print_emotion_distribution(original_file, train_file, dev_file, test_file):
     for emotion, ratio in test_dist.items():
         print(f"{emotion}: {ratio*100:.2f}%")
 # 使用方法
-original_file = "/data/vitsGPT/datasets/EmoV_DB_bea_filtered/audio_llama-emo_wav_filtered.txt"
-train_file = "/data/vitsGPT/datasets/EmoV_DB_bea_filtered/train.txt"
-dev_file = "/data/vitsGPT/datasets/EmoV_DB_bea_filtered/dev.txt"
-test_file = "/data/vitsGPT/datasets/EmoV_DB_bea_filtered/test.txt"
+original_file = "vitsGPT/datasets/EmoV_DB_bea_filtered/audio_llama-emo_wav_filtered.txt"
+train_file = "vitsGPT/datasets/EmoV_DB_bea_filtered/train.txt"
+dev_file = "vitsGPT/datasets/EmoV_DB_bea_filtered/dev.txt"
+test_file = "vitsGPT/datasets/EmoV_DB_bea_filtered/test.txt"
 print_emotion_distribution(original_file, train_file, dev_file, test_file)
 
 
@@ -222,14 +222,14 @@ def clean_and_save_data(input_file, output_file):
         f.write('\n'.join(cleaned_lines))
 # 使用方法
 input_files = [
-    "/data/vitsGPT/datasets/EmoV_DB_bea_filtered/train.txt",
-    "/data/vitsGPT/datasets/EmoV_DB_bea_filtered/dev.txt",
-    "/data/vitsGPT/datasets/EmoV_DB_bea_filtered/test.txt"
+    "vitsGPT/datasets/EmoV_DB_bea_filtered/train.txt",
+    "vitsGPT/datasets/EmoV_DB_bea_filtered/dev.txt",
+    "vitsGPT/datasets/EmoV_DB_bea_filtered/test.txt"
 ]
 output_files = [
-    "/data/vitsGPT/datasets/EmoV_DB_bea_filtered/train_cleaned.txt",
-    "/data/vitsGPT/datasets/EmoV_DB_bea_filtered/dev_cleaned.txt",
-    "/data/vitsGPT/datasets/EmoV_DB_bea_filtered/test_cleaned.txt"
+    "vitsGPT/datasets/EmoV_DB_bea_filtered/train_cleaned.txt",
+    "vitsGPT/datasets/EmoV_DB_bea_filtered/dev_cleaned.txt",
+    "vitsGPT/datasets/EmoV_DB_bea_filtered/test_cleaned.txt"
 ]
 for input_file, output_file in zip(input_files, output_files):
     clean_and_save_data(input_file, output_file)
