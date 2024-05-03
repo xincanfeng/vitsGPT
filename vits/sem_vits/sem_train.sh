@@ -13,9 +13,9 @@ CUDA_VISIBLE_DEVICES=0 python sem_train.py -c configs/ljs_bert_phone.json -m ljs
 
 # EmoV_DB
 # batchsize 16
-# CUDA_VISIBLE_DEVICES=0 python sem_train.py -c configs/emovdb_sem_mat_text16.json -m emovdb_sem_mat_text_pretrained16
-# CUDA_VISIBLE_DEVICES=0 python sem_train.py -c configs/emovdb_sem_mat_phone16.json -m emovdb_sem_mat_phone_pretrained16
-# CUDA_VISIBLE_DEVICES=0 python sem_train.py -c configs/emovdb_bert_text16.json -m emovdb_sem_mat_bert_text_pretrained16
-# CUDA_VISIBLE_DEVICES=0 python sem_train.py -c configs/emovdb_bert_phone16.json -m emovdb_sem_mat_bert_phone_pretrained16
+CUDA_VISIBLE_DEVICES=0 python sem_train.py -c configs/emovdb_sem_mat_text16.json -m emovdb_sem_mat_text_pretrained16
+CUDA_VISIBLE_DEVICES=1 python sem_train.py -c configs/emovdb_sem_mat_phone16.json -m emovdb_sem_mat_phone_pretrained16
+CUDA_VISIBLE_DEVICES=0 python sem_train.py -c configs/emovdb_bert_text16.json -m emovdb_sem_mat_bert_text_pretrained16
+CUDA_VISIBLE_DEVICES=1 python sem_train.py -c configs/emovdb_bert_phone16.json -m emovdb_sem_mat_bert_phone_pretrained16
 
 
