@@ -22,9 +22,6 @@ model='librif_emo_add_ave_pretrained'
 step='G_50000'
 # step='G_100000'
 # step='G_150000'
-# step='G_200000'
-# step='G_250000'
-# step='G_300000'
 
 
 # 1. Run `eval_1_make_kaldi_style_files.py` to rename the generated audio samples in the `source_model_test_wav` file corresponding to its transcript key. And generate related scp files. 

@@ -4,15 +4,18 @@ llama/llama-2-13b
 llama/llama-2-13b-chat
 llama/llama-2-70b
 llama/llama-2-70b-chat
+
 vits/SURVEY
+
 **/logs/
 **/logs-batchsize16/
+
 filelists
+filelists_Llama2-7b-token
 
 
 datasets/EmoV_DB_bea_sem
 datasets/LJSpeech-1.1
-dataset/
 
 
 hf_data/

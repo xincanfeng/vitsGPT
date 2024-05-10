@@ -10,11 +10,13 @@ def is_not_divisible_by_number(filename):
             return True
         elif int(num) > 150000:
             return True
+        elif int(num) != 150000:
+            return True
     return False
 
 
-# 定义目标文件夹路径
-directory_path = 'vits/sem_vits/logs/onehour_ljs_sem_mat_bert_text'
+# 定义目标文件夹路径cdv
+directory_path = 'vits/sem_vits/logs/emovdb_sem_mat_bert_text_pretrained16'
 
 
 # 遍历目标文件夹中的所有文件

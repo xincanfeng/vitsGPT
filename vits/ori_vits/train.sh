@@ -1,7 +1,7 @@
 # LJSpeech
 # batchsize 64
 CUDA_VISIBLE_DEVICES=0 python train.py -c configs/ljs_base.json -m ljs_base
-CUDA_VISIBLE_DEVICES=1 python train.py -c configs/onehour_ljs_sem_mat_text.json -m onehour_ljs_base
+CUDA_VISIBLE_DEVICES=0 python train.py -c configs/onehour_ljs_sem_mat_text.json -m onehour_ljs_base
 
 
 # EmoV_DB_bea_sem

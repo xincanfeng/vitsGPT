@@ -48,7 +48,7 @@ def main():
 
   n_gpus = torch.cuda.device_count()
   os.environ['MASTER_ADDR'] = 'localhost'
-  os.environ['MASTER_PORT'] = '12394'
+  os.environ['MASTER_PORT'] = '12388'
 
   hps = utils.get_hparams()
   mp.spawn(run, nprocs=n_gpus, args=(n_gpus, hps,))
@@ -255,8 +255,8 @@ def evaluate(hps, generator, eval_loader, writer_eval):
         break
       y_hat, attn, mask, *_ = generator.module.infer(x, x_lengths, emb_sem=emb_sem, max_len=1000)
       y_hat_lengths = mask.sum([1,2]).long() * hps.data.hop_length
-      print("in the evaluate")
-      print(emb_sem)
+      # print("in the evaluate")
+      # print(emb_sem)
 
       mel = spec_to_mel_torch(
         spec, 
