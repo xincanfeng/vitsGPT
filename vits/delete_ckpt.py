@@ -4,7 +4,7 @@ import re
 
 # 定义一个函数，用于判断文件名中的数字是否可以被10,000整除
 def is_not_divisible_by_number(filename):
-    numbers = re.findall(r'\d+', filename)
+    numbers = re.findall(r"\d+", filename)
     for num in numbers:
         if int(num) % 50000 != 0 and int(num) != 800000:
             return True
@@ -16,7 +16,7 @@ def is_not_divisible_by_number(filename):
 
 
 # 定义目标文件夹路径cdv
-directory_path = 'vits/sem_vits/logs/emovdb_sem_mat_bert_text_pretrained16'
+directory_path = "vits/sem_vits/logs/emovdb_sem_mat_bert_text_pretrained16"
 
 
 # 遍历目标文件夹中的所有文件

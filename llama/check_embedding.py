@@ -1,13 +1,12 @@
 import torch
 import csv
 
-embedding_file_name = '/data/vitsGPT/vits/filelists/emovdb_audio_bert_cls_768.pt'
+embedding_file_name = "/data/vitsGPT/vits/filelists/emovdb_audio_bert_cls_768.pt"
 
 # load embedding file
-gt_embeddings_dict = torch.load(f"{embedding_file_name}.pt") # 加载文本嵌入的字典
+gt_embeddings_dict = torch.load(f"{embedding_file_name}.pt")  # 加载文本嵌入的字典
 # print(gt_embeddings_dict)
 print(len(gt_embeddings_dict))
-
 
 
 # def count_rows_in_csv(file_path):
@@ -19,7 +18,7 @@ print(len(gt_embeddings_dict))
 
 
 # 准备写入 CSV 文件
-with open(f'{embedding_file_name}_check.csv', 'w', newline='') as csvfile:
+with open(f"{embedding_file_name}_check.csv", "w", newline="") as csvfile:
     writer = csv.writer(csvfile)
     # 对于字典中的每个项
     for key, tensor in gt_embeddings_dict.items():
@@ -27,4 +26,3 @@ with open(f'{embedding_file_name}_check.csv', 'w', newline='') as csvfile:
         values = list(tensor[:5].numpy()) + list(tensor[-5:].numpy())
         # 写入 CSV 文件
         writer.writerow([key] + values)
-        

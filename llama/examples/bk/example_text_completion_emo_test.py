@@ -39,8 +39,15 @@ def main(
         top_p=top_p,
     )
     # 紧接着generation，调用 get_promt_last_token_embedding 方法
-    h_last_real_token_b, h_ave_real_token_b, h_last_real_token_slt, h_ave_real_token_slt, h_pca_real_token_slt, h_mat_real_token_slt = generator.get_text_prompt_token_embedding()
-    # print(h_last_real_token_b.shape) 
+    (
+        h_last_real_token_b,
+        h_ave_real_token_b,
+        h_last_real_token_slt,
+        h_ave_real_token_slt,
+        h_pca_real_token_slt,
+        h_mat_real_token_slt,
+    ) = generator.get_text_prompt_token_embedding()
+    # print(h_last_real_token_b.shape)
     # print(h_ave_real_token_b)
     # print(h_last_real_token_slt)
     # print(h_ave_real_token_slt)

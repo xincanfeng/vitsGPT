@@ -10,7 +10,7 @@ model = sys.argv[2]
 step = sys.argv[3]
 
 # # 定义源文件和目标文件的路径
-# method = 'ori' 
+# method = 'ori'
 # model = 'ljs_base'
 # model = 'onehour_ljs_base'
 # model = 'tenmin_ljs_base'
@@ -46,10 +46,12 @@ model_step_dir = f"vits/{method}_vits/logs/{model}/{step}/"
 kaldi_style_files_dir = f"{model_step_dir}kaldi_style_files/"
 source_text_path = "vits/filelists/ljs_audio_text_test_filelist.txt"
 
-gt_audio_folder_dir = 'vits/DUMMY1/gt_test_wav/'
-model_audio_folder_dir = f"{model_step_dir}model_test_wav/"  # 包含要重命名的文件的文件夹的路径
-source_gt_audio_folder_dir = 'vits/DUMMY1/'
-source_model_audio_folder_dir = f'{model_step_dir}source_model_test_wav/'
+gt_audio_folder_dir = "vits/DUMMY1/gt_test_wav/"
+model_audio_folder_dir = (
+    f"{model_step_dir}model_test_wav/"  # 包含要重命名的文件的文件夹的路径
+)
+source_gt_audio_folder_dir = "vits/DUMMY1/"
+source_model_audio_folder_dir = f"{model_step_dir}source_model_test_wav/"
 
 text_file_path = f"{kaldi_style_files_dir}text"
 gt_wav_scp_path = f"{kaldi_style_files_dir}gt_wav.scp"
@@ -68,7 +70,9 @@ def clear_directory(directory_path):
             elif os.path.isdir(file_path):
                 shutil.rmtree(file_path)
         except Exception as e:
-            print(f'Failed to delete {file_path}. Reason: {e}')
+            print(f"Failed to delete {file_path}. Reason: {e}")
+
+
 # 使用方法
 if os.path.exists(kaldi_style_files_dir) and os.path.isdir(kaldi_style_files_dir):
     clear_directory(kaldi_style_files_dir)
@@ -81,19 +85,19 @@ os.makedirs(destination_dir, exist_ok=True)
 # 或者使用 shutil.copy2() 复制文件，它会尝试保留文件元数据
 shutil.copy2(source_text_path, f"{text_file_path}_bk")
 # 读取源文件的内容
-with open(source_text_path, 'r') as source_file:
+with open(source_text_path, "r") as source_file:
     lines = source_file.readlines()
 # 处理每一行并写入目标文件
-with open(text_file_path, 'w') as dest_file:
+with open(text_file_path, "w") as dest_file:
     for line in lines:
         # 分割 key 和 value
-        key, value = line.strip().split('|', 1)
+        key, value = line.strip().split("|", 1)
         # 删除 "DUMMY1/" 字段
-        key = key.replace('DUMMY1/', '')
+        key = key.replace("DUMMY1/", "")
         # 转换 value 为大写
         value = value.upper()
         # 删除所有标点符号
-        value = value.translate(str.maketrans('', '', string.punctuation))
+        value = value.translate(str.maketrans("", "", string.punctuation))
         # 重新组合 key 和 value，并写入目标文件
         new_line = f"{key} {value}\n"
         dest_file.write(new_line)
@@ -102,18 +106,22 @@ with open(text_file_path, 'w') as dest_file:
 # stage 2. 准备工作：为顺次生成的test wav根据utt重命名（如果已经重命名过再跑代码也没关系）
 def rename_wav_files(text_file_path, source_model_audio_folder_dir):
     # 读取文本文件并获取每一行的 key
-    with open(text_file_path, 'r') as file:
-        keys = [line.split(' ')[0].replace('DUMMY1/', '') for line in file]
+    with open(text_file_path, "r") as file:
+        keys = [line.split(" ")[0].replace("DUMMY1/", "") for line in file]
     for index, key in enumerate(keys):
         # 构造旧的文件名和新的文件名
-        old_filename = os.path.join(source_model_audio_folder_dir, f'output_{method}_{index}.wav')
-        new_filename = os.path.join(source_model_audio_folder_dir, f'{key}')
+        old_filename = os.path.join(
+            source_model_audio_folder_dir, f"output_{method}_{index}.wav"
+        )
+        new_filename = os.path.join(source_model_audio_folder_dir, f"{key}")
         # 检查旧的文件是否存在
         if os.path.exists(old_filename):
             # 重命名文件
             os.rename(old_filename, new_filename)
         else:
             print(f"File {old_filename} does not exist.")
+
+
 # 使用方法
 rename_wav_files(text_file_path, source_model_audio_folder_dir)
 
@@ -122,18 +130,20 @@ rename_wav_files(text_file_path, source_model_audio_folder_dir)
 def audio_to_wav(text_file_path, audio_folder_dir, output_file_path):
     # 确保输出文件的父目录存在
     os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
-    with open(text_file_path, 'r') as text_file:
+    with open(text_file_path, "r") as text_file:
         # 读取文本文件的每一行，并将每一行的 key 分割出来
-        keys = [line.strip().split(' ')[0] for line in text_file]
-    with open(output_file_path, 'w') as output_file:
+        keys = [line.strip().split(" ")[0] for line in text_file]
+    with open(output_file_path, "w") as output_file:
         for key in keys:
             # 构造 wav 文件的路径
             # 删除 'DUMMY1/' 以构造文件名
-            wav_filename = key.replace('DUMMY1/', '')
+            wav_filename = key.replace("DUMMY1/", "")
             wav_path = os.path.join(audio_folder_dir, wav_filename)
             # 写入新文件
             output_file.write(f"{key} {wav_path}\n")
     print(f"wav scp file saved to {output_file_path}")
+
+
 # 使用方法
 audio_to_wav(text_file_path, gt_audio_folder_dir, gt_wav_scp_path)
 audio_to_wav(text_file_path, model_audio_folder_dir, model_wav_scp_path)
@@ -149,10 +159,10 @@ def check_files_existence_in_scp(scp_file_path):
     missing_counts_per_directory = defaultdict(int)
     # 创建一个字典来记录每个文件夹中的文件总数
     total_counts_per_directory = defaultdict(int)
-    with open(scp_file_path, 'r') as scp_file:
+    with open(scp_file_path, "r") as scp_file:
         for line in scp_file:
             # 分割每一行以获取文件路径（value 部分）
-            key, file_path = line.strip().split(' ')
+            key, file_path = line.strip().split(" ")
             # 更新文件夹的文件总数
             directory = os.path.dirname(file_path)
             total_counts_per_directory[directory] += 1
@@ -173,6 +183,8 @@ def check_files_existence_in_scp(scp_file_path):
         total_count = total_counts_per_directory[directory]
         if missing_count == total_count:
             print(f"{directory}: All files in this directory are missing.")
+
+
 # 使用方法
 check_files_existence_in_scp(gt_wav_scp_path)
 check_files_existence_in_scp(model_wav_scp_path)

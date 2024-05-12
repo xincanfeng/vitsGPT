@@ -6,7 +6,8 @@ import torch
 from llama import Llama
 
 
-output_file_name = 'ljs_audio_gt_last'
+output_file_name = "ljs_audio_gt_last"
+
 
 def load_sentences_from_file(input_file: str):
     """
@@ -15,18 +16,19 @@ def load_sentences_from_file(input_file: str):
     """
     audiopaths = []
     sentences = []
-    with open(input_file, 'r') as file:
+    with open(input_file, "r") as file:
         for line in file:
-            audiopath, sentence, _ = line.strip().split('|')
-            audiopath = "DUMMY1/" + audiopath + ".wav" # 修改此行以适配正确的音频链接
+            audiopath, sentence, _ = line.strip().split("|")
+            audiopath = "DUMMY1/" + audiopath + ".wav"  # 修改此行以适配正确的音频链接
             audiopaths.append(audiopath)
             sentences.append(sentence)
     return audiopaths, sentences
 
+
 def main(
     ckpt_dir: str,
     tokenizer_path: str,
-    input_file: str = 'datasets/LJSpeech-1.1/metadata_copy10.csv',
+    input_file: str = "datasets/LJSpeech-1.1/metadata_copy10.csv",
     output_file: str = f"vits/filelists/{output_file_name}_5120.pt",
     temperature: float = 0.6,
     top_p: float = 0.9,
@@ -34,7 +36,7 @@ def main(
     max_gen_len: int = 64,
     max_batch_size: int = 8,
 ):
-    
+
     generator = Llama.build(
         ckpt_dir=ckpt_dir,
         tokenizer_path=tokenizer_path,
@@ -65,8 +67,10 @@ def main(
 
     for audiopath, embedding in zip(audiopaths, gt_embeddings):
         output_dict[audiopath] = embedding.cpu()
-        
-    for audiopath, prompt, result, embedding in zip(audiopaths, prompts, results, gt_embeddings):
+
+    for audiopath, prompt, result, embedding in zip(
+        audiopaths, prompts, results, gt_embeddings
+    ):
         print(f"geting embedding for {output_file_name}:")
         print(audiopath)
         print(prompt)
@@ -75,6 +79,7 @@ def main(
         print("\n==================================\n")
 
     torch.save(output_dict, output_file)
+
 
 if __name__ == "__main__":
     fire.Fire(main)

@@ -6,6 +6,7 @@ import fire
 from llama import Llama
 import torch
 
+
 def load_sentences_from_file(input_file: str, batch_size: int):
     """
     从给定的文件中加载句子，并按batch_size返回批次。
@@ -14,28 +15,29 @@ def load_sentences_from_file(input_file: str, batch_size: int):
     audiopaths = []
     sentences = []
     batches = []
-    
-    with open(input_file, 'r') as file:
+
+    with open(input_file, "r") as file:
         for line in file:
-            _, _, audiopath, sentence = line.strip().split('|')
+            _, _, audiopath, sentence = line.strip().split("|")
             audiopath = "DUMMY5/" + audiopath
             audiopaths.append(audiopath)
             sentences.append(sentence)
-            
+
             if len(sentences) == batch_size:
                 batches.append((audiopaths, sentences))
                 audiopaths, sentences = [], []
-                
+
     if audiopaths and sentences:  # handle the last batch if it's not empty
         batches.append((audiopaths, sentences))
-        
+
     return batches
+
 
 def main(
     ckpt_dir: str,
     tokenizer_path: str,
-    input_file: str = 'datasets/EmoV_DB_bea_filtered/audio_llama-emo_wav_filtered.txt',
-    output_file: str = 'vits/filelists/emovdb_audio_sem_eis_sentence_4096.pt',
+    input_file: str = "datasets/EmoV_DB_bea_filtered/audio_llama-emo_wav_filtered.txt",
+    output_file: str = "vits/filelists/emovdb_audio_sem_eis_sentence_4096.pt",
     temperature: float = 0.6,
     top_p: float = 0.9,
     max_seq_len: int = 512,
@@ -57,10 +59,16 @@ def main(
         total_audiopaths.extend(audiopaths)
         # 为每个句子构建对话
         for sentence in sentences:
-            dialogs=[
+            dialogs = [
                 [
-                    {"role": "system", "content": "Always answer within a sentence even if there are multiple requirements. Never chat about yourself."},
-                    {"role": "user", "content": f"Describe the emotion, intention, and speaking style of the sentence in a easy-to-understand sentence: {sentence}"},
+                    {
+                        "role": "system",
+                        "content": "Always answer within a sentence even if there are multiple requirements. Never chat about yourself.",
+                    },
+                    {
+                        "role": "user",
+                        "content": f"Describe the emotion, intention, and speaking style of the sentence in a easy-to-understand sentence: {sentence}",
+                    },
                 ]
             ]
 
@@ -70,7 +78,7 @@ def main(
                 temperature=temperature,
                 top_p=top_p,
             )
-            
+
             h_eis_ave_real_token_slt = generator.get_chat_prompt_token_embedding()
             gt_embeddings = h_eis_ave_real_token_slt.cpu()
 
@@ -85,7 +93,8 @@ def main(
     for audiopath, embedding in zip(total_audiopaths, gt_embeddings):
         output_dict[audiopath] = embedding
     # 保存字典为PyTorch的.pt文件
-    torch.save(output_dict, output_file) 
+    torch.save(output_dict, output_file)
+
 
 if __name__ == "__main__":
     fire.Fire(main)

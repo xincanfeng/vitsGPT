@@ -6,6 +6,7 @@ import fire
 from llama import Llama
 import torch
 
+
 def load_sentences_from_file(input_file: str, batch_size: int):
     """
     从给定的文件中加载句子，并按batch_size返回批次。
@@ -14,27 +15,28 @@ def load_sentences_from_file(input_file: str, batch_size: int):
     audiopaths = []
     sentences = []
     batches = []
-    
-    with open(input_file, 'r') as file:
+
+    with open(input_file, "r") as file:
         for line in file:
-            audiopath, sentence = line.strip().split('|')
+            audiopath, sentence = line.strip().split("|")
             audiopaths.append(audiopath)
             sentences.append(sentence)
-            
+
             if len(sentences) == batch_size:
                 batches.append((audiopaths, sentences))
                 audiopaths, sentences = [], []
-                
+
     if audiopaths and sentences:  # handle the last batch if it's not empty
         batches.append((audiopaths, sentences))
-        
+
     return batches
+
 
 def main(
     ckpt_dir: str,
     tokenizer_path: str,
-    input_file: str = 'datasets/EmoV_DB_bea_filtered/metadata.csv',
-    output_file: str = 'datasets/EmoV_DB_bea_filtered/emovdb-bea_audio_emo.txt',
+    input_file: str = "datasets/EmoV_DB_bea_filtered/metadata.csv",
+    output_file: str = "datasets/EmoV_DB_bea_filtered/emovdb-bea_audio_emo.txt",
     temperature: float = 0.6,
     top_p: float = 0.9,
     max_seq_len: int = 512,
@@ -56,10 +58,16 @@ def main(
         total_audiopaths.extend(audiopaths)
         # 为每个句子构建对话
         for sentence in sentences:
-            dialogs=[
+            dialogs = [
                 [
-                    {"role": "system", "content": "Always answer using a word among: Amused, Angry, Disgusted, Neutral, Sleepy. Or answer 'not sure' if you are not sure about the answer."},
-                    {"role": "user", "content": f"what is the emotion of the sentence: {sentence}"},
+                    {
+                        "role": "system",
+                        "content": "Always answer using a word among: Amused, Angry, Disgusted, Neutral, Sleepy. Or answer 'not sure' if you are not sure about the answer.",
+                    },
+                    {
+                        "role": "user",
+                        "content": f"what is the emotion of the sentence: {sentence}",
+                    },
                 ],
             ]
 
@@ -69,7 +77,7 @@ def main(
                 temperature=temperature,
                 top_p=top_p,
             )
-            
+
             for dialog, result in zip(dialogs, results):
                 for msg in dialog:
                     print(f"{msg['role'].capitalize()}: {msg['content']}\n")
@@ -77,14 +85,14 @@ def main(
                     f"> {result['generation']['role'].capitalize()}: {result['generation']['content']}"
                 )
                 print("\n==================================\n")
-    
+
             output_dict[sentence] = results
-            
-    with open(output_file, 'w') as file:
+
+    with open(output_file, "w") as file:
         for sentence, results in output_dict.items():
             # 这里假设 result 已经是一个字符串。如果不是，请调用 str() 进行转换。
             file.write(f"{results}|{sentence}\n")
-    
+
 
 if __name__ == "__main__":
     fire.Fire(main)

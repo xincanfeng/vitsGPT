@@ -1,10 +1,10 @@
 import csv
 import re
 
-input_file = 'vitsGPT/datasets/EmoV_DB_bea_filtered/metadata_original.csv'
-output_file = 'vitsGPT/datasets/EmoV_DB_bea_filtered/metadata_converted.csv'
+input_file = "vitsGPT/datasets/EmoV_DB_bea_filtered/metadata_original.csv"
+output_file = "vitsGPT/datasets/EmoV_DB_bea_filtered/metadata_converted.csv"
 
-with open(input_file, 'r') as in_file, open(output_file, 'w') as out_file:
+with open(input_file, "r") as in_file, open(output_file, "w") as out_file:
     for line in in_file:
         match = re.match(r"\( arctic_a(\d{4}) \"(.+)\" \)", line.strip())
         if match:

@@ -6,7 +6,8 @@ import torch
 from llama import Llama
 
 
-output_file_name = 'emovdb_audio_sem_last'
+output_file_name = "emovdb_audio_sem_last"
+
 
 def load_sentences_from_file(input_file: str, batch_size: int):
     """
@@ -16,35 +17,36 @@ def load_sentences_from_file(input_file: str, batch_size: int):
     audiopaths = []
     sentences = []
     batches = []
-    
-    with open(input_file, 'r') as file:
+
+    with open(input_file, "r") as file:
         for line in file:
-            _, _, audiopath, sentence = line.strip().split('|')
+            _, _, audiopath, sentence = line.strip().split("|")
             audiopath = "DUMMY5/" + audiopath
             audiopaths.append(audiopath)
             sentences.append(sentence)
-            
+
             if len(sentences) == batch_size:
                 batches.append((audiopaths, sentences))
                 audiopaths, sentences = [], []
-                
+
     if audiopaths and sentences:  # handle the last batch if it's not empty
         batches.append((audiopaths, sentences))
-        
+
     return batches
+
 
 def main(
     ckpt_dir: str,
     tokenizer_path: str,
-    input_file: str = 'datasets/EmoV_DB_bea_filtered/audio_llama-emo_wav_filtered.txt',
+    input_file: str = "datasets/EmoV_DB_bea_filtered/audio_llama-emo_wav_filtered.txt",
     output_file: str = f"vits/filelists/{output_file_name}_4096.pt",
     temperature: float = 0.6,
     top_p: float = 0.9,
     max_seq_len: int = 256,
     max_gen_len: int = 64,
-    max_batch_size: int = 100, # 本文件中每次最大输入的句子数
+    max_batch_size: int = 100,  # 本文件中每次最大输入的句子数
 ):
-    
+
     generator = Llama.build(
         ckpt_dir=ckpt_dir,
         tokenizer_path=tokenizer_path,
@@ -67,7 +69,9 @@ def main(
 
         # 紧接着generation，调用 get_promt_last_token_embedding 方法
         # h_last_real_token_b, h_ave_real_token_b, h_last_real_token_slt, h_ave_real_token_slt, h_pca_real_token_slt, h_mat_real_token_sl = generator.get_text_prompt_token_embedding()
-        _, _, h_last_real_token_slt, _, _, _ = generator.get_text_prompt_token_embedding()
+        _, _, h_last_real_token_slt, _, _, _ = (
+            generator.get_text_prompt_token_embedding()
+        )
         # _, _, _, h_ave_real_token_slt, _, _ = generator.get_text_prompt_token_embedding()
         # _, _, _, _, h_pca_real_token_slt, _ = generator.get_text_prompt_token_embedding()
         # _, _, _, _, _, h_mat_real_token_sl = generator.get_text_prompt_token_embedding()
@@ -78,8 +82,10 @@ def main(
         # gt_embeddings = [tensor.cpu() for tensor in h_mat_real_token_sl]
 
         total_audiopaths.extend(audiopaths)
-            
-        for audiopath, prompt, result, embedding in zip(audiopaths, prompts, results, gt_embeddings):
+
+        for audiopath, prompt, result, embedding in zip(
+            audiopaths, prompts, results, gt_embeddings
+        ):
             print(f"geting embedding for {output_file_name}:")
             print(audiopath)
             print(prompt)
@@ -90,6 +96,7 @@ def main(
     for audiopath, embedding in zip(total_audiopaths, gt_embeddings):
         output_dict[audiopath] = embedding
     torch.save(output_dict, output_file)
+
 
 if __name__ == "__main__":
     fire.Fire(main)

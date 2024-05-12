@@ -6,13 +6,14 @@ import fire
 from llama import Llama
 import torch
 
-output_file_name = 'semantics_eis_word'
+output_file_name = "semantics_eis_word"
 
-input_file = '/data/espnet/egs2/libritts/tts1/data/train-clean-100/text_split_1'
+input_file = "/data/espnet/egs2/libritts/tts1/data/train-clean-100/text_split_1"
 output_file = f"/data/espnet/egs2/libritts/tts1/dump/raw/train-clean-100_phn/{output_file_name}_temp_1.pt"
 
 # input_file = '/data/espnet/egs2/libritts/tts1/data/dev-clean/text'
 # output_file = f"/data/espnet/egs2/libritts/tts1/dump/raw/dev-clean_phn/{output_file_name}.pt"
+
 
 def load_sentences_from_file(input_file: str, batch_size: int):
     """
@@ -22,21 +23,22 @@ def load_sentences_from_file(input_file: str, batch_size: int):
     audiopaths = []
     sentences = []
     batches = []
-    
-    with open(input_file, 'r') as file:
+
+    with open(input_file, "r") as file:
         for line in file:
-            audiopath, sentence = line.strip().split(' ', 1)
+            audiopath, sentence = line.strip().split(" ", 1)
             audiopaths.append(audiopath)
             sentences.append(sentence)
-            
+
             if len(sentences) == batch_size:
                 batches.append((audiopaths, sentences))
                 audiopaths, sentences = [], []
-                
+
     if audiopaths and sentences:  # handle the last batch if it's not empty
         batches.append((audiopaths, sentences))
-        
+
     return batches
+
 
 def main(
     ckpt_dir: str,
@@ -64,18 +66,27 @@ def main(
         total_audiopaths.extend(audiopaths)
         # 为每个句子构建对话
         for sentence in sentences:
-            dialogs=[
+            dialogs = [
                 [
                     {"role": "system", "content": "Always answer within a word."},
-                    {"role": "user", "content": f"what is the emotion of the sentence: {sentence}"},
+                    {
+                        "role": "user",
+                        "content": f"what is the emotion of the sentence: {sentence}",
+                    },
                 ],
                 [
                     {"role": "system", "content": "Always answer within a word."},
-                    {"role": "user", "content": f"what is the intention of the sentence: {sentence}"},
+                    {
+                        "role": "user",
+                        "content": f"what is the intention of the sentence: {sentence}",
+                    },
                 ],
                 [
                     {"role": "system", "content": "Always answer within a word."},
-                    {"role": "user", "content": f"what is the speaking style of the sentence: {sentence}"},
+                    {
+                        "role": "user",
+                        "content": f"what is the speaking style of the sentence: {sentence}",
+                    },
                 ],
             ]
 
@@ -85,7 +96,7 @@ def main(
                 temperature=temperature,
                 top_p=top_p,
             )
-            
+
             h_eis_ave_real_token_slt = generator.get_chat_prompt_token_embedding()
             gt_embeddings = h_eis_ave_real_token_slt.cpu()
 
@@ -101,7 +112,8 @@ def main(
     for audiopath, embedding in zip(total_audiopaths, gt_embeddings):
         output_dict[audiopath] = embedding
     # 保存字典为PyTorch的.pt文件
-    torch.save(output_dict, output_file) # -1.0436, -0.8646
+    torch.save(output_dict, output_file)  # -1.0436, -0.8646
+
 
 if __name__ == "__main__":
     fire.Fire(main)

@@ -32,9 +32,9 @@ python3 vits/eval_datasets/eval_emovdb/eval_1_make_kaldi_style_files.py ${method
 . vits/eval_datasets/eval_emovdb/eval_2_unify_and_eval.sh ${method} ${model} ${step}
 
 # 3. Run `eval_3_mos.py` to evaluate UTMOS using the SpeechMOS framework. 
-# CUDA_VISIBLE_DEVICES=0 python3 vits/eval_datasets/eval_emovdb/eval_3_mos.py ${method} ${model} ${step}
+CUDA_VISIBLE_DEVICES=0 python3 vits/eval_datasets/eval_emovdb/eval_3_mos.py ${method} ${model} ${step}
 
 # 4. Find a random English recipe in ESPnet, and use its code to do objective evaluation. Specifically, run `eval.sh` to evaluate MCD, ASR, F0 using the ESPnet framework. (You can also run this step before the step 3.)
 # CUDA_VISIBLE_DEVICES=0 . espnet/egs2/libritts/tts1/eval.sh ${method} ${model} ${step} 
 # option: run in the background
-# CUDA_VISIBLE_DEVICES=0 nohup espnet/egs2/libritts/tts1/eval.sh ${method} ${model} ${step} > eval.log 2>&1 & 
+CUDA_VISIBLE_DEVICES=0 nohup espnet/egs2/libritts/tts1/eval.sh ${method} ${model} ${step} > eval.log 2>&1 & 

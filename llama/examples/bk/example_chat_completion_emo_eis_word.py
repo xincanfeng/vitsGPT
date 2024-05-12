@@ -6,6 +6,7 @@ import fire
 from llama import Llama
 import torch
 
+
 def load_sentences_from_file(input_file: str):
     """
     从给定的文件中加载句子。
@@ -13,19 +14,20 @@ def load_sentences_from_file(input_file: str):
     """
     audiopaths = []
     sentences = []
-    with open(input_file, 'r') as file:
+    with open(input_file, "r") as file:
         for line in file:
-            audiopath, sentence, _ = line.strip().split('|')
-            audiopath = "DUMMY1/" + audiopath + ".wav" # 修改此行以适配正确的音频链接
+            audiopath, sentence, _ = line.strip().split("|")
+            audiopath = "DUMMY1/" + audiopath + ".wav"  # 修改此行以适配正确的音频链接
             audiopaths.append(audiopath)
             sentences.append(sentence)
     return audiopaths, sentences
 
+
 def main(
     ckpt_dir: str,
     tokenizer_path: str,
-    input_file: str = 'datasets/LJSpeech-1.1/metadata_copy10.csv',
-    output_file: str = 'vits/filelists/ljs_audio_gt_eis_word_5120.pt',
+    input_file: str = "datasets/LJSpeech-1.1/metadata_copy10.csv",
+    output_file: str = "vits/filelists/ljs_audio_gt_eis_word_5120.pt",
     temperature: float = 0.6,
     top_p: float = 0.9,
     max_seq_len: int = 512,
@@ -44,18 +46,27 @@ def main(
     output_dict = {}
     # 为每个句子构建对话
     for sentence in sentences:
-        dialogs=[
+        dialogs = [
             [
                 {"role": "system", "content": "Always answer within a word."},
-                {"role": "user", "content": f"what is the emotion of the sentence: {sentence}"},
+                {
+                    "role": "user",
+                    "content": f"what is the emotion of the sentence: {sentence}",
+                },
             ],
             [
                 {"role": "system", "content": "Always answer within a word."},
-                {"role": "user", "content": f"what is the intention of the sentence: {sentence}"},
+                {
+                    "role": "user",
+                    "content": f"what is the intention of the sentence: {sentence}",
+                },
             ],
             [
                 {"role": "system", "content": "Always answer within a word."},
-                {"role": "user", "content": f"what is the speaking style of the sentence: {sentence}"},
+                {
+                    "role": "user",
+                    "content": f"what is the speaking style of the sentence: {sentence}",
+                },
             ],
         ]
 
@@ -65,7 +76,7 @@ def main(
             temperature=temperature,
             top_p=top_p,
         )
-        
+
         h_eis_ave_real_token_slt = generator.get_chat_prompt_token_embedding()
 
         gt_embeddings = h_eis_ave_real_token_slt
@@ -82,7 +93,8 @@ def main(
             print("\n==================================\n")
 
     # 保存字典为PyTorch的.pt文件
-    torch.save(output_dict, output_file) # -1.0436, -0.8646
+    torch.save(output_dict, output_file)  # -1.0436, -0.8646
+
 
 if __name__ == "__main__":
     fire.Fire(main)

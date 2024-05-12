@@ -6,7 +6,8 @@ import torch
 from llama import Llama
 
 
-output_file_name = 'librif_audio_sem_mat_phone'
+output_file_name = "librif_audio_sem_mat_phone"
+
 
 def load_sentences_from_file(input_file: str, batch_size: int):
     """
@@ -16,34 +17,35 @@ def load_sentences_from_file(input_file: str, batch_size: int):
     audiopaths = []
     sentences = []
     batches = []
-    
-    with open(input_file, 'r') as file:
+
+    with open(input_file, "r") as file:
         for line in file:
-            audiopath, sentence = line.strip().split('|') 
+            audiopath, sentence = line.strip().split("|")
             audiopaths.append(audiopath)
             sentences.append(sentence)
-            
+
             if len(sentences) == batch_size:
                 batches.append((audiopaths, sentences))
                 audiopaths, sentences = [], []
-                
+
     if audiopaths and sentences:  # handle the last batch if it's not empty
         batches.append((audiopaths, sentences))
-        
+
     return batches
+
 
 def main(
     ckpt_dir: str,
     tokenizer_path: str,
-    input_file: str = 'vits/filelists/librif_audio_text_all_filelist.txt.cleaned',
+    input_file: str = "vits/filelists/librif_audio_text_all_filelist.txt.cleaned",
     output_file: str = f"vits/filelists/{output_file_name}_t4096.pt",
     temperature: float = 0.6,
     top_p: float = 0.9,
     max_seq_len: int = 512,
     max_gen_len: int = 64,
-    max_batch_size: int = 8, # 本文件中每次最大输入的句子数
+    max_batch_size: int = 8,  # 本文件中每次最大输入的句子数
 ):
-    
+
     generator = Llama.build(
         ckpt_dir=ckpt_dir,
         tokenizer_path=tokenizer_path,
@@ -76,10 +78,11 @@ def main(
         # gt_embeddings = h_pca_real_token_slt.cpu()
         gt_embeddings = [tensor.cpu() for tensor in h_mat_real_token_sl]
 
-
         total_audiopaths.extend(audiopaths)
-            
-        for audiopath, prompt, result, embedding in zip(audiopaths, prompts, results, gt_embeddings):
+
+        for audiopath, prompt, result, embedding in zip(
+            audiopaths, prompts, results, gt_embeddings
+        ):
             print(f"geting embedding for {output_file_name}:")
             print(audiopath)
             print(prompt)
@@ -90,6 +93,7 @@ def main(
     for audiopath, embedding in zip(total_audiopaths, gt_embeddings):
         output_dict[audiopath] = embedding
     torch.save(output_dict, output_file)
+
 
 if __name__ == "__main__":
     fire.Fire(main)

@@ -27,13 +27,25 @@ def main(
     dialogs = [
         [
             {"role": "system", "content": "Always answer within a word."},
-            {"role": "user", "content": "what is the emotion of the sentence: Suspicion clouded his judgment, every gesture and word from his friend now seeming like a potential deceit."}],
+            {
+                "role": "user",
+                "content": "what is the emotion of the sentence: Suspicion clouded his judgment, every gesture and word from his friend now seeming like a potential deceit.",
+            },
+        ],
         [
             {"role": "system", "content": "Always answer within a word."},
-            {"role": "user", "content": "what is the intention of the sentence: Suspicion clouded his judgment, every gesture and word from his friend now seeming like a potential deceit."}],
+            {
+                "role": "user",
+                "content": "what is the intention of the sentence: Suspicion clouded his judgment, every gesture and word from his friend now seeming like a potential deceit.",
+            },
+        ],
         [
             {"role": "system", "content": "Always answer within two words."},
-            {"role": "user", "content": "what is the speaking style of the sentence: Suspicion clouded his judgment, every gesture and word from his friend now seeming like a potential deceit."}],
+            {
+                "role": "user",
+                "content": "what is the speaking style of the sentence: Suspicion clouded his judgment, every gesture and word from his friend now seeming like a potential deceit.",
+            },
+        ],
     ]
     results = generator.chat_completion(
         dialogs,  # type: ignore
