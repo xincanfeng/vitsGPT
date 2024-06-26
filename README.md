@@ -34,10 +34,6 @@ In our recent [paper](https://arxiv.org/abs/2404.06714), we propose Llama-VITS f
         sudo apt-get update
         sudo apt-get install espeak
         ```
-    1. You may also try out below requirements that we extract from our environment if `requirements.txt` does not work for you. 
-        ```sh
-        pip install -r requirements_all.txt
-        ```
 0. Download datasets
     1. Download and extract the LJSpeech dataset from [its official page](https://keithito.com/LJ-Speech-Dataset/), then rename or use absolute paths to create soft links to your data to make it easier to access:
         ```sh
