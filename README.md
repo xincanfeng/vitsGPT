@@ -31,7 +31,8 @@ In our recent [paper](https://arxiv.org/abs/2404.06714), we propose Llama-VITS f
     ```
     1. You may need to install espeak first: 
         ```sh
-        apt-get install espeak
+        sudo apt-get update
+        sudo apt-get install espeak
         ```
     1. You may also try out below requirements that we extract from our environment if `requirements.txt` does not work for you. 
         ```sh
