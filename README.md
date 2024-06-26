@@ -87,7 +87,7 @@ In our recent [paper](https://arxiv.org/abs/2404.06714), we propose Llama-VITS f
 
 ## Extracting Semantic Embeddings 
 Note that we have provided all extracted semantic embeddings from Llama or various BERT models in `filelists` named as `{dataset}_audio_{token}_{dimension}.pt`. 
-We provide the code to extract semantic embeddings from Llama or various BERT models as below. 
+But if you want to process your own data, we also provide the code to extract semantic embeddings from Llama or various BERT models as below. 
 
 ### Extracting Semantic Embeddings From Llama
 0. Use the Llama implementation in our repository which includes codes to extract the semantic embeddings in the final hidden layer. But you can always refer to [Llama](https://github.com/meta-llama/llama/tree/main) repository if there are further related questions. 
