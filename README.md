@@ -137,7 +137,9 @@ Please refer to [emo_train.sh](vits/emo_vits/emo_train.sh) for specific configur
 cd sem_vits
 python sem_train.py -c configs/ljs_sem_mat_text.json -m ljs_sem_mat_text
 ```
-Please refer to [sem_train.sh](vits/sem_vits/sem_train.sh) for specific configurations of different datasets and sequential tokens. ("mat" in the sequential tokens' file name means "matrix", because compared to global token which is mathematically represented by a single vector, sequential token is represented by a matrix for each sentence transcript.)
+Please refer to [sem_train.sh](vits/sem_vits/sem_train.sh) for specific configurations of different datasets and sequential tokens. 
+
+(In case you are interested in naming details, "mat" in the sequential tokens' file name means "matrix", because compared to global token which is mathematically represented by a single vector, sequential token is represented by a matrix for each sentence transcript.)
 
 
 ## Inferencing
