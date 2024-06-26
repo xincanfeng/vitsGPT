@@ -91,8 +91,9 @@ But if you want to process your own data, we also provide the code to extract se
 
 ### Extracting Semantic Embeddings From Llama
 0. Use the Llama implementation in our repository which includes codes to extract the semantic embeddings in the final hidden layer. But you can always refer to [Llama](https://github.com/meta-llama/llama/tree/main) repository if there are further related questions. 
-0. First, in the llama/ directory run: 
+0. First, in the `vitsGPT/llama` directory run: 
     ```sh
+    cd vitsGPT/llama
     pip install -e .
     ```
 0. Then, download the Llama weights and tokenizer from [Meta website](https://ai.meta.com/resources/models-and-libraries/llama-downloads/) and accept their License.   
