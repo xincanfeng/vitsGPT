@@ -4,7 +4,7 @@
 # pip install git+https://github.com/openai/whisper.git
 
 # 自动激活espnet虚拟环境
-cd /data/espnet/egs2/libritts/tts1
+cd /{your-path}/espnet/egs2/libritts/tts1
 . path.sh
 
 method=$1
@@ -103,4 +103,4 @@ done
 
 
 # stage 3. 在espnet中随便找一个英语recipe，利用它的代码对模型生成的wav进行评估
-. /data/espnet/egs2/libritts/tts1/eval.sh ${method} ${model} ${step}
+. /{your-path}/espnet/egs2/libritts/tts1/eval.sh ${method} ${model} ${step}

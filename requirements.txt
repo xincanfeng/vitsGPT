@@ -1,8 +1,5 @@
-torch
-fairscale
-fire
-sentencepiece
-
+torch==2.0.1
+torchvision==0.15.2
 Cython==0.29.21
 librosa==0.8.0
 matplotlib==3.3.1
@@ -11,6 +8,8 @@ tensorboard==2.3.0
 Unidecode==1.1.1
 numpy
 scipy
-torch==2.0.1
-torchvision
+fairscale
+fire
+sentencepiece
+
 

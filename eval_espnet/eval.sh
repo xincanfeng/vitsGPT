@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# 注意不要下载假的whisper
+# Take care not to install fake whisper
 # pip install git+https://github.com/openai/whisper.git
 
 # 自动激活espnet虚拟环境
-cd /data/espnet/egs2/libritts/tts1
+cd /{your-path}/espnet/egs2/libritts/tts1
 . path.sh
 
 method=$1
@@ -12,10 +12,9 @@ model=$2
 step=$3
 
 # 选择模型
-# method='ori' 
-# model='ljs_base'
+method='ori' 
+model='ljs_base'
 # model='onehour_ljs_base'
-# model='tenmin_ljs_base'
 
 # method='emo'
 # model='ljs_emo_add_ave'
@@ -34,17 +33,12 @@ step=$3
 # model='ljs_sem_mat_text'
 # model='onehour_ljs_sem_mat_phone'
 # model='onehour_ljs_sem_mat_text'
-# model='tenmin_ljs_sem_mat_phone'
-# model='tenmin_ljs_sem_mat_text'
 
 # step='G_50000'
 # step='G_100000'
 # step='G_150000'
-# step='G_200000'
-# step='G_250000'
-# step='G_300000'
 
-model_step_dir="/data/vitsGPT/vits/${method}_vits/logs/${model}/${step}/"
+model_step_dir="/{your-path}/vitsGPT/vits/${method}_vits/logs/${model}/${step}/"
 kaldi_style_files_dir="${model_step_dir}kaldi_style_files/"
 
 gt_wavscp="${kaldi_style_files_dir}gt_wav.scp"
