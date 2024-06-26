@@ -39,7 +39,7 @@ In our recent [paper](https://arxiv.org/abs/2404.06714), we propose Llama-VITS f
         pip install -r requirements_all.txt
         ```
 0. Download datasets
-    1. Download and extract the LJSpeech dataset from [its official page](https://keithito.com/LJ-Speech-Dataset/), then rename or use absolute paths to create soft links to your data:
+    1. Download and extract the LJSpeech dataset from [its official page](https://keithito.com/LJ-Speech-Dataset/), then rename or use absolute paths to create soft links to your data to make it easier to access:
         ```sh
         ln -s /path/to/LJSpeech-1.1/wavs /path/to/vitsGPT/DUMMY1
         ln -s /path/to/LJSpeech-1.1/wavs /path/to/vits/DUMMY1
