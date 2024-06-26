@@ -102,16 +102,16 @@ But if you want to process your own data, we also provide the code to extract se
     - During this process, you will be prompted to enter the URL from the email. 
     - Do not use the “Copy Link” option but rather make sure to manually copy the link from the email.  
     - Keep in mind that the links expire after 24 hours and a certain amount of downloads. If you start seeing errors such as `403: Forbidden`, you can always re-request a link.   
-0. Once the model/s you want have been downloaded, you can run the model locally using the command below:  
+0. Once the models you want have been downloaded, you can run the models locally. Below is one example command:  
     ```bash
     torchrun --nproc_per_node 1 example_chat_completion.py \
         --ckpt_dir llama-2-7b-chat/ \
         --tokenizer_path tokenizer.model \
         --max_seq_len 512 --max_batch_size 6
     ```
-0. You can refer to [inference.sh](llama/inference.sh) to know more examples about how to run Llama inference. You can use [inference_ave.sh](llama/inference_ave.sh), [inference_last.sh](llama/inference_last.sh), [inference_pca.sh](llama/inference_pca.sh), [inference_mat_phone.sh](llama/inference_mat_phone.sh), [inference_mat_text.sh](llama/inference_mat_text.sh), [inference_sentence.sh](llama/inference_sentence.sh), and [inference_word.sh](llama/inference_word.sh) for scripts to infer and extract specific semantic embeddings.
+0. You can refer to [inference.sh](llama/inference.sh) to learn more examples we created to run Llama inference. You can use [inference_ave.sh](llama/inference_ave.sh), [inference_last.sh](llama/inference_last.sh), [inference_pca.sh](llama/inference_pca.sh), [inference_mat_phone.sh](llama/inference_mat_phone.sh), [inference_mat_text.sh](llama/inference_mat_text.sh), [inference_sentence.sh](llama/inference_sentence.sh), and [inference_word.sh](llama/inference_word.sh) scripts to infer and extract corresponding specific semantic embeddings in our paper.
 
-    As you can read from the `inference_{token}.sh` script, `example_{llama-model}_{token-method}_{token}.py` in the `llama/examples/{dataset}_examples` folder is used to tell Llama how to extract different semantic embeddings, what input transcripts to follow, and where to output. So, remember to check the corresponding `example_{llama-model}_{token-method}_{token}.py` file for configurations of the variable `input_file`, `output_file`, and `audiopath` that you want to process. 
+    As you can read from the `inference_{token}.sh` script, `example_{llama-model}_{method}_{token}.py` in the `llama/examples/{dataset}_examples` folder is used to tell Llama how to extract different semantic embeddings, what input transcripts to follow, and where to output. So, remember to check the corresponding `example_{llama-model}_{method}_{token}.py` file for configurations of the variable `input_file`, `output_file`, and `audiopath` that you want to process. 
 
 ### Extracting Semantic Embeddings From various BERT models
 You can configure in [get_embedding.sh](berts/get_embedding.sh) to extract BERT embedding. When configuring, don't forget to set correct `filelist_dir` in corresponding `get_embedding_{token}.py` files. 
