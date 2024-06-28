@@ -23,13 +23,16 @@ In our recent [paper](https://arxiv.org/abs/2404.06714), we propose Llama-VITS f
 
 
 ## Pre-requisites 
-0. Python >= 3.6
 0. Clone this repository
-0. Install python requirements. Please refer to [requirements.txt](requirements.txt)
     ```sh
-    pip install -r requirements.txt
+    git clone git@github.com:xincanfeng/vitsGPT.git
     ```
-    1. You may need to install espeak first: 
+0. Install requirements. 
+    ```sh
+    pip install pdm
+    pdm install 
+    ```
+    1. You may need to install espeak using sudo: 
         ```sh
         sudo apt-get update
         sudo apt-get install espeak
