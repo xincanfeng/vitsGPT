@@ -29,6 +29,7 @@ In our recent [paper](https://arxiv.org/abs/2404.06714), we propose Llama-VITS f
     ```
 0. Install requirements. 
     ```sh
+    cd vitsGPT
     pip install pdm
     pdm install 
     ```
