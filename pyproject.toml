@@ -1,0 +1,12 @@
+[tool]
+[tool.pdm]
+
+[project]
+# PEP 621 project metadata
+# See https://www.python.org/dev/peps/pep-0621/
+dependencies = ["Cython==0.29.21", "fairscale==0.4.13", "fire==0.5.0", "librosa==0.10.0.post2", "matplotlib==3.3.1", "numpy==1.24.4", "phonemizer==2.2.1", "pydub", "scipy==1.11.1", "sentencepiece==0.1.99", "setuptools", "text2phonemesequence", "torch==2.0.1", "transformers==4.36.2", "Unidecode==1.1.1", "tensorboard"]
+requires-python = "==3.10.12"
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
