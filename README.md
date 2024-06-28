@@ -33,7 +33,7 @@ In our recent [paper](https://arxiv.org/abs/2404.06714), we propose Llama-VITS f
     pip install pdm
     pdm install 
     ```
-    1. You may need to install espeak using sudo: 
+    1. You may need to install espeak first: 
         ```sh
         sudo apt-get update
         sudo apt-get install espeak
